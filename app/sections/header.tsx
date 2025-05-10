@@ -11,7 +11,7 @@ export default function Header() {
         </a>
         <div className="hidden md:flex space-x-8">
           <a href="#home" className="hover:text-gray-400 transition">
-            F
+            <img src="/layers.svg" className="h-12 w-12 mt-4" />
           </a>
         </div>
       </nav>
