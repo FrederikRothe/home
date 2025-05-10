@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import Typed from "typed.js";
-import CoffeeBean from "../components/javabean";
 
 export default function Hero() {
   const typedRef = useRef(null);
@@ -42,7 +41,6 @@ export default function Hero() {
         </h1>
         <div className="flex gap-4 justify-center md:justify-start"></div>
       </div>
-      <CoffeeBean />
     </section>
   );
 }
