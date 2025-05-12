@@ -28,7 +28,16 @@ export default async function About() {
                             Featured Post
                         </h3>
                         <div className="max-w-sm mx-auto">
-                            <BlogCard meta={featuredPost.meta} />
+                            {/* Pass serializable props to the client component */}
+                            <BlogCard
+                                meta={{
+                                    slug: featuredPost.meta.slug,
+                                    title: featuredPost.meta.title,
+                                    date: featuredPost.meta.date,
+                                    coverImage: featuredPost.meta.coverImage,
+                                    excerpt: featuredPost.meta.excerpt,
+                                }}
+                            />
                         </div>
                     </div>
                 </div>

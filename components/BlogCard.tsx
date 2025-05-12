@@ -1,29 +1,40 @@
-import Image from 'next/image'
+'use client'
+
+import { Card, CardHeader, CardFooter, Image } from '@heroui/react'
 import Link from 'next/link'
 import type { PostMeta } from '@/lib/posts'
 
 export default function BlogCard({ meta }: { meta: PostMeta }) {
     return (
-        <Link
-            href={`/blogs/${meta.slug}`}
-            className="group block max-w-sm border border-gray-100 rounded-lg hover:border-gray-200 transition-all hover:translate-y-[-2px]"
-        >
-            <div className="aspect-video overflow-hidden rounded-t-lg relative">
+        <Link href={`/blogs/${meta.slug}`}>
+            <Card isFooterBlurred className="w-full h-[300px] col-span-12">
+                <CardHeader className="absolute z-10 top-1 flex-col !items-start">
+                    <time className="text-tiny text-white/70 uppercase font-bold">
+                        {new Date(meta.date).toLocaleDateString(undefined, {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                        })}
+                        
+                    </time>
+                    <h4 className="text-white font-medium text-xl">
+                        {meta.title}
+                    </h4>
+                </CardHeader>
                 <Image
+                    removeWrapper
+                    alt={meta.title}
+                    className="z-0 w-full h-full object-cover"
                     src={meta.coverImage}
-                    alt=""
-                    fill
-                    sizes="(min-width: 640px) 300px, 100vw"
-                    className="object-cover transition-all duration-300 group-hover:scale-105"
                 />
-            </div>
-            <div className="p-5 border-t border-gray-50">
-                <time className="text-xs text-gray-400 mb-2 block">
-                    {new Date(meta.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
-                </time>
-                <h2 className="font-medium text-lg tracking-tight mb-2">{meta.title}</h2>
-                <p className="text-sm text-gray-500">{meta.excerpt}</p>
-            </div>
+                <CardFooter className="absolute bg-black/30 backdrop-blur-md bottom-0 z-10 border-t-1 border-default-600 dark:border-default-100">
+                    <div className="flex flex-col">
+                        <p className="text-tiny text-white/90">
+                            {meta.excerpt}
+                        </p>
+                    </div>
+                </CardFooter>
+            </Card>
         </Link>
     )
 }
