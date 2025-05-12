@@ -25,7 +25,29 @@ export async function getPostBySlug(slug: string) {
   const file = fs.readFileSync(join(BLOG_DIR, `${realSlug}.md`), 'utf8');
   const { data, content } = matter(file);
 
-  const processed = await remark().use(html).process(content);
+  // Enhanced markdown processing with proper heading structure
+  const processed = await remark()
+    .use(html, {
+      sanitize: false, // Allow HTML in markdown
+      allowDangerousHtml: true, // Allow HTML in the markdown source
+      handlers: {
+        // Ensure headings get proper attributes and structure
+        heading: (h, node) => {
+          const level = node.depth;
+          return {
+            type: 'element',
+            tagName: `h${level}`,
+            properties: {
+              id: node.children[0].value.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, ''),
+              className: [`heading-${level}`]
+            },
+            children: h.all(node)
+          };
+        }
+      }
+    })
+    .process(content);
+
   const htmlContent = processed.toString();
 
   return {

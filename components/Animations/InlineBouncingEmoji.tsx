@@ -13,9 +13,9 @@ export default function InlineBouncingEmoji({
     useEffect(() => {
         if (emojiRef.current) {
             animate(emojiRef.current, {
-                translateY: [0, -10, 0],
+                translateY: [0, -15, 0],
                 rotate: [0, 10, 0, -10, 0],
-                duration: 1000,
+                duration: 1500,
                 easing: 'easeInOutQuad',
                 loop: false,
             })

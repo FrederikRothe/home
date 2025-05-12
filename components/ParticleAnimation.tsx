@@ -41,11 +41,13 @@ function generateParticles(count: number) {
 }
 
 function ParticleField({ scrollY }: { scrollY: number }) {
-    const { theme } = useTheme()
-    const isDark = theme === 'dark'
+    const { theme, resolvedTheme } = useTheme()
+    // Use resolvedTheme for more accurate detection including system preference
+    const isDark = resolvedTheme === 'dark'
 
     // References for animations
     const pointsRef = useRef<THREE.Points>(null)
+    const materialRef = useRef<THREE.PointsMaterial>(null)
     const { viewport } = useThree()
 
     // Create particles with memoization to avoid recreating on each render
@@ -115,7 +117,16 @@ function ParticleField({ scrollY }: { scrollY: number }) {
     })
 
     // Get color based on theme
-    const particleColor = isDark ? '#60A5FA' : '#38BDF8'
+    const particleColor = isDark ? '#60A5FA' : '#5152F5'
+
+    // Update material when theme changes
+    useEffect(() => {
+        if (materialRef.current) {
+            materialRef.current.color = new THREE.Color(particleColor)
+            // Add a slight size difference for each theme
+            materialRef.current.size = isDark ? 0.018 : 0.015
+        }
+    }, [isDark, particleColor])
 
     return (
         <Points
@@ -125,6 +136,7 @@ function ParticleField({ scrollY }: { scrollY: number }) {
             frustumCulled={false}
         >
             <PointMaterial
+                ref={materialRef}
                 transparent
                 vertexColors
                 color={particleColor}
@@ -160,9 +172,12 @@ export default function ParticleAnimation() {
     }, [])
 
     return (
-        <div className="w-full h-full opacity-60" style={{ pointerEvents: 'none' }}>
+        <div
+            className="w-full h-full opacity-60"
+            style={{ pointerEvents: 'none' }}
+        >
             <Canvas
-                camera={{ position: [0, 0, 1], fov: 50 }}
+                camera={{ position: [0, 0, 1], fov: 30 }}
                 dpr={[1, 1.5]} // Limit pixel ratio for performance
                 gl={{
                     antialias: false,

@@ -1,6 +1,7 @@
 import { getPostBySlug, getPostSlugs } from '@/lib/posts'
 import Image from 'next/image'
 import Link from 'next/link'
+import '../blog-styles.css'
 
 // Generate metadata for the page
 export async function generateMetadata({ params }: { params: { slug: string } }) {
@@ -54,9 +55,9 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           </div>
         )}
         
-        <div 
-          className="prose prose-gray max-w-none"
-          dangerouslySetInnerHTML={{ __html: post.htmlContent }} 
+        <div
+          className="prose prose-lg dark:prose-invert prose-headings:font-bold prose-a:text-primary prose-img:rounded-lg max-w-none blog-content"
+          dangerouslySetInnerHTML={{ __html: post.htmlContent }}
         />
       </article>
     </main>
