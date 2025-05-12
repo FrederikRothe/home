@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import { useRef, useEffect } from "react";
-import Header from "./sections/header";
-import Hero from "./sections/hero";
-import About from "./sections/about";
+import Header from "../sections/header";
+import Hero from "../sections/hero";
+import About from "../sections/about";
 
 export default function Home() {
   return (
