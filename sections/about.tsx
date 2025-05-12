@@ -7,7 +7,10 @@ export default async function About() {
     const featuredPost = await getPostBySlug('my-first-post')
 
     return (
-        <section id="about" className="py-20 bg-gray-50 dark:bg-gray-900">
+        <section
+            id="about"
+            className="py-20 bg-background-light dark:bg-background-dark"
+        >
             <div className="container mx-auto px-4">
                 <h2 className="text-3xl font-bold mb-12 text-center">
                     About me.
