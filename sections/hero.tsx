@@ -1,4 +1,5 @@
 'use client'
+import BouncingText from '@/components/Animations/BouncingText'
 import InlineBouncingEmoji from '@/components/Animations/InlineBouncingEmoji'
 import { useEffect, useRef } from 'react'
 import Typed from 'typed.js'
@@ -35,14 +36,15 @@ export default function Hero() {
             <div className="container mx-auto px-4 text-center md:text-left">
                 <h1 className="text-4xl md:text-6xl font-bold mb-4">
                     Hi, I'm{' '}
-                    <span className="text-blue-500">
-                        Frederik<InlineBouncingEmoji>👋🏼</InlineBouncingEmoji>
+                    <span className="text-primary">
+                        Frederik
+                        <InlineBouncingEmoji>👋🏼</InlineBouncingEmoji>
                     </span>
                     <br />
                     I study Computer Science at the IT-University of Copenhagen.
                     <br />
                     Oh, and I also{' '}
-                    <span ref={typedRef} className="text-blue-500"></span>
+                    <span ref={typedRef} className="text-primary"></span>
                 </h1>
                 <div className="flex gap-4 justify-center md:justify-start"></div>
             </div>
