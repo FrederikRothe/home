@@ -6,7 +6,6 @@ import Footer from '@/sections/footer'
 export default function Home() {
     return (
         <div className="min-h-screen font-[family-name:var(--font-geist-sans)]">
-            <Header />
             <Hero />
             <About />
             <Footer />

@@ -1,8 +1,8 @@
 ---
-title: My First Post
-date: 2025-05-10
-coverImage: ../public/fr.svg
-excerpt: A quick walk-through of how I built my new portfolio.
+title: Second Post
+date: 2025-05-11
+coverImage: /globe.svg
+excerpt: Exploring Next.js features and capabilities.
 ---
 
 

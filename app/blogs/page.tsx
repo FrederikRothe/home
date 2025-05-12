@@ -11,7 +11,7 @@ export default async function BlogIndex() {
     const posts = (await getAllPosts()).map((p) => p.meta)
 
     return (
-        <main className="container mx-auto px-4 py-12">
+        <main className="container mx-auto px-4 py-12 ">
             <h1 className="text-3xl font-semibold mb-8">Blog</h1>
 
             <section className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
