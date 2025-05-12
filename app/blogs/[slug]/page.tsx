@@ -25,11 +25,11 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   const post = await getPostBySlug(params.slug)
 
   return (
-    <main className="container mx-auto px-4 py-12 max-w-prose">
+    <main className="container mx-auto px-4 py-12 max-w-prose font-[family-name:var(--font-geist-sans)]">
       <Link href="/blogs" className="text-sm text-gray-500 hover:text-gray-700 mb-8 inline-flex items-center">
         ← Back to all posts
       </Link>
-      
+
       <article className="mt-8">
         <header className="mb-8">
           <time className="text-sm text-gray-500 block mb-2">
@@ -42,10 +42,10 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           <h1 className="text-3xl font-bold mb-4">{post.meta.title}</h1>
           <p className="text-xl text-gray-600">{post.meta.excerpt}</p>
         </header>
-        
+
         {post.meta.coverImage && (
           <div className="mb-8 relative aspect-video">
-            <Image 
+            <Image
               src={post.meta.coverImage}
               alt=""
               fill
@@ -54,7 +54,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
             />
           </div>
         )}
-        
+
         <div
           className="prose prose-lg dark:prose-invert prose-headings:font-bold prose-a:text-primary prose-img:rounded-lg max-w-none blog-content"
           dangerouslySetInnerHTML={{ __html: post.htmlContent }}

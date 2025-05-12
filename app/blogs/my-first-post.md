@@ -1,7 +1,7 @@
 ---
 title: My First Post
 date: 2025-05-10
-coverImage: /fr.svg
+coverImage: /preview.jpg
 excerpt: A quick walk-through of how I built my new portfolio.
 ---
 
@@ -39,5 +39,3 @@ function hello() {
   console.log("Hello, world!");
 }
 ```
-
-And here's a [link to my portfolio](https://example.com).

@@ -1,5 +1,16 @@
 /* Blog post specific styles */
 
+/* Apply the same font as the rest of the site */
+.blog-content {
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* Code blocks use mono font */
+.blog-content code,
+.blog-content pre {
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+}
+
 /* Ensure heading sizes are properly differentiated */
 .blog-content h1 {
   font-size: 2.5rem !important; /* 40px */
