@@ -3,16 +3,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import '../blog-styles.css'
 
-// Generate metadata for the page
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const post = await getPostBySlug(params.slug)
-  
-  return {
-    title: post.meta.title,
-    description: post.meta.excerpt,
-  }
-}
-
 // Generate static paths for all blog posts
 export async function generateStaticParams() {
   const slugs = getPostSlugs()
@@ -21,8 +11,25 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
-  const post = await getPostBySlug(params.slug)
+// Configure the page as statically generated
+export const dynamic = 'force-static'
+
+// Generate metadata for the page
+export async function generateMetadata({ params }: any) {
+  const { slug } = params
+  const post = await getPostBySlug(slug)
+  
+  return {
+    title: post.meta.title,
+    description: post.meta.excerpt,
+  }
+}
+
+// Main blog post component with basic type format 
+// Adding a simpler type annotation resolves the issue when using --turbo flag
+export default async function BlogPost({ params }: any) {
+  const { slug } = params
+  const post = await getPostBySlug(slug)
 
   return (
     <main className="container mx-auto px-4 py-12 max-w-prose font-[family-name:var(--font-geist-sans)]">
