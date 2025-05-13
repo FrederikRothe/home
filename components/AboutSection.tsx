@@ -46,39 +46,7 @@ export default function AboutSection({ featuredPost }: AboutSectionProps) {
                     </h1>
                 </ScrollFadeIn>
 
-                <div className="max-w-4xl mx-auto">
-                    <ScrollFadeIn
-                        direction="up"
-                        distance={40}
-                        duration={800}
-                        delay={200}
-                        className="mb-12"
-                    >
-                        <div>
-                            <p className="text-lg mb-8">
-                                I'm a passionate developer focused on creating
-                                clean, user-friendly web experiences. Check out
-                                my featured article below about how I built this
-                                portfolio.
-                            </p>
-                        </div>
-                    </ScrollFadeIn>
-
-                    <ScrollFadeIn
-                        direction="up"
-                        distance={40}
-                        duration={1000}
-                        delay={400}
-                        className="mb-8"
-                    >
-                        <h3 className="text-xl font-semibold mb-4">
-                            Featured Post
-                        </h3>
-                        <div className="max-w-md mx-auto">
-                            Insert Card Here.
-                        </div>
-                    </ScrollFadeIn>
-                </div>
+                <div className="max-w-4xl mx-auto"></div>
             </div>
         </section>
     )
