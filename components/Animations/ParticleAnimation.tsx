@@ -30,7 +30,7 @@ function generateParticles(count: number) {
 
         // Randomize colors slightly within a blue palette
         colors[i * 3] = 0.2 + Math.random() * 0.2 // R
-        colors[i * 3 + 1] = 0.5 + Math.random() * 0.3 // G
+        colors[i * 3 + 1] = 0.5 + Math.random() * 0.5 // G
         colors[i * 3 + 2] = 0.8 + Math.random() * 0.2 // B
 
         // Random sizes with bias towards smaller particles
@@ -122,7 +122,7 @@ function ParticleField({ scrollY }: { scrollY: number }) {
     // Update material when theme changes
     useEffect(() => {
         if (materialRef.current) {
-            materialRef.current.color = new THREE.Color(particleColor)
+            // materialRef.current.color = new THREE.Color(particleColor)
             // Add a slight size difference for each theme
             materialRef.current.size = isDark ? 0.018 : 0.015
         }
@@ -138,7 +138,7 @@ function ParticleField({ scrollY }: { scrollY: number }) {
             <PointMaterial
                 ref={materialRef}
                 transparent
-                vertexColors
+                /* vertexColors */
                 color={particleColor}
                 size={0.015}
                 sizeAttenuation={true}
