@@ -1,17 +1,23 @@
 export default function Footer() {
-  return (
-    <footer className="bg-gray-900 dark:bg-black text-white py-8">
-      <div className="container mx-auto px-4 text-center">
-        <p>&copy; {new Date().getFullYear()} How to reach me.</p>
-        <div className="flex justify-center mt-4 space-x-4">
-          <a
-            href="https://www.linkedin.com/in/frederik-rothe/"
-            className="hover:text-gray-400 transition"
-          >
-            <img src="/linkedin.svg" alt="LinkedIn" className="h-6 w-6" />
-          </a>
-        </div>
-      </div>
-    </footer>
-  );
+    return (
+        <footer className="py-8 w-full mt-auto">
+            <div className="container mx-auto px-4 text-center">
+                <p className="font-bold text-foreground">
+                    &copy; {new Date().getFullYear()} How to reach me.
+                </p>
+                <div className="flex justify-center mt-4 space-x-4">
+                    <a
+                        href="https://www.linkedin.com/in/frederik-rothe/"
+                        className="text-foreground hover:text-primary transition"
+                    >
+                        <img
+                            src="/linkedin.svg"
+                            alt="LinkedIn"
+                            className="h-6 w-6"
+                        />
+                    </a>
+                </div>
+            </div>
+        </footer>
+    )
 }
