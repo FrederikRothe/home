@@ -53,7 +53,7 @@ export default function About({ featuredPostData }: AboutProps) {
                     className="mb-12 text-center"
                 >
                     <h1 className="text-4xl md:text-6xl font-bold mb-4">
-                        Currently working on
+                        My projects
                         <span ref={typedRef} className="text-primary"></span>
                     </h1>
                 </ScrollFadeIn>
