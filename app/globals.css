@@ -10,6 +10,7 @@
   --secondary: #A5F3FC;          /* Light cyan */
   --secondary-hover: #67E8F9;    /* Slightly darker cyan for hover */
   --accent: #F59E0B;             /* Golden accent */
+  --grid-line: rgb(255, 0, 0); /* Subtle grid lines for charts */
 }
 
 /* Dark mode - applied when .dark class is on html element */
@@ -22,6 +23,7 @@
   --secondary: #2DD4BF;          /* Teal */
   --secondary-hover: #14B8A6;    /* Slightly darker teal for hover */
   --accent: #F59E0B;             /* Keep the same golden accent */
+  --grid-line: rgb(0, 0, 255); /* Subtle grid lines for charts */
 }
 
 @theme inline {
