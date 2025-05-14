@@ -9,8 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@heroui/card": "^2.2.18",
-    "@heroui/react": "^2.7.8",
     "@react-three/drei": "^10.0.7",
     "@react-three/fiber": "^9.1.2",
     "animejs": "^4.0.2",
