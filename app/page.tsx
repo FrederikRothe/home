@@ -1,15 +1,17 @@
 import Hero from '../sections/hero'
 import About from '../sections/about'
 import Other from '@/sections/other'
-import Footer from '@/sections/footer'
+import { getPostBySlug } from '@/lib/posts'
 
-export default function Home() {
+export default async function Home() {
+    // Fetch data server-side
+    const featuredPost = await getPostBySlug('my-first-post')
+
     return (
         <div className="font-[family-name:var(--font-geist-sans)]">
             <Hero />
-            <About />
+            <About featuredPostData={featuredPost} />
             <Other />
-            <Footer />
         </div>
     )
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import { useTheme } from 'next-themes'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
 interface ThemedIconProps {
@@ -56,10 +57,12 @@ export default function ThemedIcon({
     )}`
 
     return (
-        <img
+        <Image
             src={svgDataUrl}
             alt={alt}
             className={`${className} transition-all duration-300`}
+            width={64} // Set a default width
+            height={64} // Set a default height
         />
     )
 }

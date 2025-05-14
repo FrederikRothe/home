@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 export default function Footer() {
     return (
         <footer className="py-8 w-full mt-auto">
@@ -10,10 +12,12 @@ export default function Footer() {
                         href="https://www.linkedin.com/in/frederik-rothe/"
                         className="text-foreground hover:text-primary transition"
                     >
-                        <img
+                        <Image
                             src="/linkedin.svg"
                             alt="LinkedIn"
                             className="h-6 w-6"
+                            width={64}
+                            height={64}
                         />
                     </a>
                 </div>
