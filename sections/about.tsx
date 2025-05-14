@@ -1,6 +1,8 @@
 // This is a client component
 'use client'
 
+import AboutCard from '@/components/AboutCard'
+import RunningCard from '@/components/RunningCard'
 import ScrollFadeIn from '@/components/ScrollFadeIn'
 import { useEffect, useRef } from 'react'
 import Typed from 'typed.js'
@@ -54,6 +56,17 @@ export default function About({ featuredPostData }: AboutProps) {
                         About Me
                         <span ref={typedRef} className="text-primary"></span>
                     </h1>
+                </ScrollFadeIn>
+                <ScrollFadeIn
+                    direction="up"
+                    distance={30}
+                    duration={1000}
+                    className="mb-12"
+                >
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                        <AboutCard />
+                        <RunningCard />
+                    </div>
                 </ScrollFadeIn>
 
                 <div className="max-w-4xl mx-auto"></div>
