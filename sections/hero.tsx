@@ -1,6 +1,6 @@
 'use client'
-import BouncingText from '@/components/Animations/BouncingText'
-import InlineBouncingEmoji from '@/components/Animations/InlineBouncingEmoji'
+import BouncingText from '@/components/AnimationsComponents/BouncingText'
+import InlineBouncingEmoji from '@/components/AnimationsComponents/InlineBouncingEmoji'
 import { useEffect, useRef } from 'react'
 import Typed from 'typed.js'
 
