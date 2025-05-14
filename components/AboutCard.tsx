@@ -1,25 +1,42 @@
-import { Card, CardHeader, CardBody, Image } from '@heroui/react'
+import Image from 'next/image'
 
-export default function App() {
+export default function AboutCard() {
     return (
-        <Card
-            isBlurred
-            className="border-none bg-background/60 dark:bg-default-100/50 max-w-[610px]"
-            shadow="sm"
-        >
-            <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-                <p className="text-tiny uppercase font-bold">Daily Mix</p>
-                <small className="text-default-500">12 Tracks</small>
-                <h4 className="font-bold text-large">Frontend Radio</h4>
-            </CardHeader>
-            <CardBody className="overflow-visible py-2">
-                <Image
-                    alt="Card background"
-                    className="object-cover rounded-xl"
-                    src="https://heroui.com/images/hero-card-complete.jpeg"
-                    width={270}
-                />
-            </CardBody>
-        </Card>
+        <div className="w-full bg-background-light dark:bg-background-dark rounded-2xl shadow-lg overflow-hidden border border-secondary/20">
+            <div className="flex flex-col md:flex-row w-full">
+                <div className="flex-1 p-6">
+                    <h2 className="text-2xl font-bold text-foreground mb-4">
+                        About Me
+                    </h2>
+                    <p className="text-foreground/80 mb-4">
+                        Welcome to my profile! I'm passionate about creating
+                        meaningful experiences through design and technology.
+                    </p>
+                    <p className="text-foreground/80 mb-4">
+                        I specialize in building modern web applications using
+                        Next.js, React, and TypeScript. My focus is on creating
+                        performant, accessible, and beautiful user interfaces.
+                    </p>
+                    <div className="mt-4 flex gap-4">
+                        <button className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors">
+                            Contact Me
+                        </button>
+                        <button className="px-4 py-2 border border-secondary/50 rounded-lg hover:bg-secondary/20 transition-colors text-foreground">
+                            View Portfolio
+                        </button>
+                    </div>
+                </div>
+                <div className="md:w-1/2 relative h-64 md:h-auto">
+                    <Image
+                        alt="Profile background"
+                        className="object-cover"
+                        src="/preview.jpg"
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        priority
+                    />
+                </div>
+            </div>
+        </div>
     )
 }

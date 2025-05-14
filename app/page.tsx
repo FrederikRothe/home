@@ -12,7 +12,9 @@ export default async function Home() {
         <div className="font-[family-name:var(--font-geist-sans)]">
             <Hero />
             <About featuredPostData={featuredPost} />
-            <Other />
+            {
+                // <Other />
+            }
             <Footer />
         </div>
     )

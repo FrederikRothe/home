@@ -42,34 +42,34 @@ export default function About({ featuredPostData }: AboutProps) {
 
     return (
         <section
-            id="other"
-            className="h-screen flex items-center justify-center pt-16 relative"
+            id="about"
+            className="min-h-screen flex items-center justify-center py-16 relative"
         >
-            <div className="container mx-auto px-4 text-center md:text-left">
+            <div className="container mx-auto px-4">
                 <ScrollFadeIn
                     direction="down"
                     distance={30}
                     duration={1000}
-                    className="mb-12"
+                    className="mb-12 text-center"
                 >
                     <h1 className="text-4xl md:text-6xl font-bold mb-4">
-                        About Me
+                        Currently working on
                         <span ref={typedRef} className="text-primary"></span>
                     </h1>
                 </ScrollFadeIn>
-                <ScrollFadeIn
-                    direction="up"
-                    distance={30}
-                    duration={1000}
-                    className="mb-12"
-                >
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                        <AboutCard />
-                        <RunningCard />
-                    </div>
-                </ScrollFadeIn>
 
-                <div className="max-w-4xl mx-auto"></div>
+                <div className="w-full mb-16">
+                    <ScrollFadeIn direction="up" distance={30} duration={1000}>
+                        <AboutCard />
+                    </ScrollFadeIn>
+                </div>
+
+                {/* Running card section */}
+                <div className="w-full">
+                    <ScrollFadeIn direction="up" distance={30} duration={1200}>
+                        <RunningCard />
+                    </ScrollFadeIn>
+                </div>
             </div>
         </section>
     )
