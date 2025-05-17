@@ -65,7 +65,18 @@ export default function RunningPage() {
                     )
                 }
 
-                const data = await res.json()
+                let data = await res.json()
+
+                // Filter out sensitive location data
+                const filteredData = data.map((activity: any) => {
+                    const { start_latlng, end_latlng, ...safeActivity } =
+                        activity
+                    return safeActivity
+                })
+                data = filteredData
+
+                console.log('Fetched activities:', data)
+
                 // Filter only running activities
                 const runningActivities = data.filter(
                     (activity: Activity) => activity.type === 'Run'
