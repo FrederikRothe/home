@@ -1,36 +1,35 @@
 export default function RunningCard() {
     return (
-        <div className="w-full bg-background-light dark:bg-background-dark rounded-2xl shadow-lg overflow-hidden border border-secondary/20">
+        <div className="w-full bg-background-light dark:bg-background-dark rounded-2xl shadow-lg overflow-hidden border border-secondary/30 dark:border-primary/20 dark:border-opacity-30 dark:shadow-blue-900/10 transition-all duration-300 hover:shadow-primary/30 dark:hover:shadow-primary/30 hover:shadow-xl group">
             <div className="flex flex-col md:flex-row-reverse w-full">
                 <div className="flex-1 p-6">
-                    <h2 className="text-2xl font-bold text-foreground mb-4">
-                        My Running Journey
+                    <h2 className="text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors duration-300">
+                        Running Journey
                     </h2>
                     <p className="text-foreground/80 mb-4">
-                        Besides coding, I'm passionate about running. It helps
-                        me clear my mind and stay focused. I regularly
-                        participate in local running events.
+                        Take a peek into my running training, if the milage is
+                        low I'm probably injured...
                     </p>
                     <div className="grid grid-cols-3 gap-4 mb-4">
-                        <div className="bg-background p-3 rounded-lg text-center">
+                        <div className=" p-3 rounded-lg text-center">
                             <p className="text-primary text-xl font-bold">
-                                120+
+                                625+
                             </p>
                             <p className="text-foreground/70 text-sm">
                                 Total Runs
                             </p>
                         </div>
-                        <div className="bg-background p-3 rounded-lg text-center">
+                        <div className=" p-3 rounded-lg text-center">
                             <p className="text-primary text-xl font-bold">
-                                500km
+                                5000+ km
                             </p>
                             <p className="text-foreground/70 text-sm">
                                 Distance
                             </p>
                         </div>
-                        <div className="bg-background p-3 rounded-lg text-center">
+                        <div className="p-3 rounded-lg text-center">
                             <p className="text-primary text-xl font-bold">
-                                50hrs
+                                450+ hrs
                             </p>
                             <p className="text-foreground/70 text-sm">
                                 Run Time
@@ -46,11 +45,12 @@ export default function RunningCard() {
                         </a>
                     </div>
                 </div>
-                <div className="md:w-1/2 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center p-6">
-                    <div className="relative w-full h-64">
+                <div className="md:w-1/2 bg-gradient-to-br from-primary/20 to-secondary/20 dark:from-primary/10 dark:to-primary/5 flex items-center justify-center p-6 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/0 group-hover:from-primary/10 group-hover:to-primary/30 transition-all duration-500"></div>
+                    <div className="relative w-full h-64 z-10">
                         <div className="absolute inset-0 flex items-center justify-center">
                             <svg
-                                className="w-32 h-32 text-primary/80"
+                                className="w-32 h-32 text-primary/80 dark:text-primary/60 transition-transform duration-500 group-hover:scale-110 group-hover:text-primary"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
