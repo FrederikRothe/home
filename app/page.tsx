@@ -1,8 +1,8 @@
-import Hero from '../sections/hero'
-import About from '../sections/about'
-import Other from '@/sections/other'
+import Hero from '../components/sections/hero'
+import About from '../components/sections/about'
+import Other from '@/components/sections/other'
 import { getPostBySlug } from '@/lib/posts'
-import Footer from '@/sections/footer'
+import Footer from '@/components/sections/footer'
 
 export default async function Home() {
     // Fetch data server-side

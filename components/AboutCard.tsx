@@ -6,7 +6,7 @@ export default function AboutCard() {
             <div className="flex flex-col md:flex-row w-full">
                 <div className="flex-1 p-6">
                     <h2 className="text-2xl font-bold text-foreground mb-4">
-                        About Me
+                        Master Thesis Project
                     </h2>
                     <p className="text-foreground/80 mb-4">
                         Welcome to my profile! I'm passionate about creating
