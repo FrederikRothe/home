@@ -65,11 +65,11 @@ export default function About({ featuredPostData }: AboutProps) {
                 </div>
 
                 {/* Running card section */}
-                <div className="w-full">
+                {/* <div className="w-full">
                     <ScrollFadeIn direction="up" distance={30} duration={1200}>
                         <RunningCard />
                     </ScrollFadeIn>
-                </div>
+                </div> */}
             </div>
         </section>
     )
