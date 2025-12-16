@@ -1,11 +1,12 @@
 // This is a client component
 'use client'
 
-import AboutCard from '@/components/AboutCard'
+import ProjectCard from '@/components/ProjectCard'
 import RunningCard from '@/components/RunningCard'
 import ScrollFadeIn from '@/components/ScrollFadeIn'
 import { useEffect, useRef } from 'react'
 import Typed from 'typed.js'
+import { LESS_EXTENSION_PROJECT, SLICEONTHEGO_PROJECT } from '@/lib/projects'
 
 // Define props interface
 interface AboutProps {
@@ -60,7 +61,8 @@ export default function About({ featuredPostData }: AboutProps) {
 
                 <div className="w-full mb-16">
                     <ScrollFadeIn direction="up" distance={30} duration={1000}>
-                        <AboutCard />
+                        <ProjectCard project={LESS_EXTENSION_PROJECT} />
+                        <ProjectCard project={SLICEONTHEGO_PROJECT} />
                     </ScrollFadeIn>
                 </div>
 

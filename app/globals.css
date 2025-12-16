@@ -2,26 +2,76 @@
 
 /* Light mode (default) - brighter palette */
 :root {
-  --background-light: #F8F9FA;   /* Very light gray (almost white) */
-  --background: #EBF4FF;         /* Light blue/white */
-  --foreground: #1A365D;         /* Dark blue for text */
-  --primary: #38BDF8;            /* Bright blue */
-  --primary-hover: #0EA5E9;      /* Slightly darker blue for hover */
-  --secondary: #A5F3FC;          /* Light cyan */
-  --secondary-hover: #67E8F9;    /* Slightly darker cyan for hover */
-  --accent: #F59E0B;             /* Golden accent */
+  --background-light: #F8F9FA;
+  /* Very light gray (almost white) */
+  --background: #EBF4FF;
+  /* Light blue/white */
+  --foreground: #1A365D;
+  /* Dark blue for text */
+  --primary: #38BDF8;
+  /* Bright blue */
+  --primary-hover: #0EA5E9;
+  /* Slightly darker blue for hover */
+  --secondary: #A5F3FC;
+  /* Light cyan */
+  --secondary-hover: #67E8F9;
+  /* Slightly darker cyan for hover */
+  --accent: #F59E0B;
+  /* Golden accent */
+
+  /* Shadcn Mappings */
+  --card: var(--background-light);
+  --card-foreground: var(--foreground);
+  --popover: var(--background-light);
+  --popover-foreground: var(--foreground);
+  --primary-foreground: #FFFFFF;
+  --secondary-foreground: var(--foreground);
+  --muted: #F1F5F9;
+  --muted-foreground: #64748B;
+  --accent-foreground: var(--foreground);
+  --destructive: #ef4444;
+  --destructive-foreground: #FFFFFF;
+  --border: var(--secondary);
+  --input: var(--secondary);
+  --ring: var(--primary);
+  --radius: 0.75rem;
 }
 
 /* Dark mode - applied when .dark class is on html element */
 .dark {
-  --background-dark: #13212E;    /* Nearly-black navy */
-  --background: #0F172A;         /* Dark navy */
-  --foreground: #F8FAFC;         /* Off-white */
-  --primary: #60A5FA;            /* Medium blue */
-  --primary-hover: #3B82F6;      /* Slightly darker blue for hover */
-  --secondary: #2DD4BF;          /* Teal */
-  --secondary-hover: #14B8A6;    /* Slightly darker teal for hover */
-  --accent: #F59E0B;             /* Keep the same golden accent */
+  --background-dark: #13212E;
+  /* Nearly-black navy */
+  --background: #0F172A;
+  /* Dark navy */
+  --foreground: #F8FAFC;
+  /* Off-white */
+  --primary: #60A5FA;
+  /* Medium blue */
+  --primary-hover: #3B82F6;
+  /* Slightly darker blue for hover */
+  --secondary: #2DD4BF;
+  /* Teal */
+  --secondary-hover: #14B8A6;
+  /* Slightly darker teal for hover */
+  --accent: #F59E0B;
+  /* Keep the same golden accent */
+
+  /* Shadcn Mappings Dark */
+  --card: var(--background-dark);
+  --card-foreground: var(--foreground);
+  --popover: var(--background-dark);
+  --popover-foreground: var(--foreground);
+  --primary-foreground: var(--background-dark);
+  --secondary-foreground: var(--foreground);
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent-foreground: var(--foreground);
+  --destructive: #7f1d1d;
+  --destructive-foreground: #FFFFFF;
+  --border: var(--primary);
+  /* Using primary for border in dark mode per original design opacity */
+  --input: var(--primary);
+  --ring: var(--secondary);
 }
 
 @theme inline {
@@ -68,8 +118,13 @@ html {
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeInUp {
@@ -77,6 +132,7 @@ html {
     opacity: 0;
     transform: translateY(40px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -88,6 +144,7 @@ html {
     opacity: 0;
     transform: translateY(-40px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
