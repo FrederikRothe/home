@@ -1,3 +1,5 @@
+"use client";
+
 import { Canvas } from "@react-three/fiber";
 import SpinningCube from "./SpinningCube";
 import { Environment, PresentationControls } from "@react-three/drei";
@@ -5,7 +7,7 @@ import { EffectComposer, Bloom } from "@react-three/postprocessing";
 
 export default function Scene() {
   return (
-    <div className="absolute inset-0 z-0">
+    <div className="fixed inset-0 w-full h-full pointer-events-none z-0">
       <Canvas>
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 5]} intensity={1} />

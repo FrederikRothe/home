@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
+import Scene from "@/components/Scene";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -23,7 +24,10 @@ export default function RootLayout({
       <body
         className={`${dmSans.variable} antialiased bg-background text-foreground font-sans`}
       >
-        {children}
+        <Scene />
+        <div className="relative z-10">
+          {children}
+        </div>
       </body>
     </html>
   );

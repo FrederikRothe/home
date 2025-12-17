@@ -21,13 +21,13 @@ export default function SpinningCube(props: ThreeElements['group']) {
     const scrollY = window.scrollY;
     
     // Complex rotation for the main mesh
-    meshRef.current.rotation.x = time * 0.1 + scrollY * 0.001;
-    meshRef.current.rotation.y = time * 0.15 + scrollY * 0.001;
+    meshRef.current.rotation.x = time * 0.1 + scrollY * 0.0001;
+    meshRef.current.rotation.y = time * 0.15 + scrollY * 0.0001;
     meshRef.current.rotation.z = time * 0.05;
 
     // Counter-rotation for the wireframe
-    wireframeRef.current.rotation.x = -(time * 0.1 + scrollY * 0.001);
-    wireframeRef.current.rotation.y = -(time * 0.15 + scrollY * 0.001);
+    wireframeRef.current.rotation.x = -(time * 0.1 + scrollY * 0.0001);
+    wireframeRef.current.rotation.y = -(time * 0.15 + scrollY * 0.0001);
     wireframeRef.current.rotation.z = -(time * 0.05);
   });
 

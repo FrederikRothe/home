@@ -7,13 +7,14 @@ export default function SocialLinks() {
   return (
     <div className="flex justify-center gap-6">
       {[
-        { Icon: Github, href: "#" },
-        { Icon: Linkedin, href: "#" },
-        { Icon: Mail, href: "mailto:example@example.com" }
+        { Icon: Github, href: "https://github.com/FrederikRothe" },
+        { Icon: Linkedin, href: "https://www.linkedin.com/in/frederik-rothe/" }
       ].map(({ Icon, href }, index) => (
         <motion.a
           key={index}
           href={href}
+          target="_blank"
+          rel="noopener noreferrer"
           initial={{ boxShadow: "0 0 0 rgba(59,130,246,0)" }}
           whileInView={{ 
             boxShadow: [

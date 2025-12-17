@@ -5,7 +5,7 @@ import SocialLinks from "@/components/SocialLinks";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <main className="min-h-screen text-foreground overflow-x-hidden">
       <Hero />
 
       <section className="py-20 pb-[40vh] px-4 md:px-20 max-w-7xl mx-auto">

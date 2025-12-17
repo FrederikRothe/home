@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Typed from "typed.js";
 import { ChevronDown } from "lucide-react";
-import Scene from "./Scene";
+
 
 export default function Hero() {
   const el = useRef(null);
@@ -35,7 +35,7 @@ export default function Hero() {
 
   return (
     <div className="h-screen flex flex-col justify-center items-start text-left px-4 md:px-20 max-w-7xl mx-auto relative overflow-hidden">
-      <Scene />
+
       <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white leading-tight z-10">
         Hi, I'm <span className="text-blue-400">Frederik.</span> <br />
         I study Computer Science at the
