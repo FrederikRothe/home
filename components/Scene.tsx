@@ -1,6 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import SpinningCube from "./SpinningCube";
 import { Environment, PresentationControls } from "@react-three/drei";
+import { EffectComposer, Bloom } from "@react-three/postprocessing";
 
 export default function Scene() {
   return (
@@ -14,12 +15,20 @@ export default function Scene() {
           snap={true}
           speed={1.5}
           zoom={1}
-          polar={[-0.1, 0.1]}
+          polar={[-Math.PI / 2, Math.PI / 2]}
           azimuth={[-1, 1]}
         >
             <SpinningCube position={[0, 0, 0]} scale={0.3} />
         </PresentationControls>
         <Environment preset="apartment" />
+        <EffectComposer>
+          <Bloom 
+            luminanceThreshold={0} 
+            luminanceSmoothing={0.9} 
+            height={300} 
+            opacity={8} 
+          />
+        </EffectComposer>
       </Canvas>
     </div>
   );
