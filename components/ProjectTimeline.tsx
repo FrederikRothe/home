@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import ProjectCard from "./ProjectCard";
 import { projects } from "@/lib/projects";
 
@@ -12,7 +12,13 @@ export default function ProjectTimeline() {
     offset: ["start center", "end center"],
   });
 
-  const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const scrollYProgressSpring = useSpring(scrollYProgress, {
+      stiffness: 100,
+      damping: 30,
+      restDelta: 0.001
+  });
+
+  const height = useTransform(scrollYProgressSpring, [0, 1], ["0%", "100%"]);
 
   return (
     <div ref={containerRef} className="relative py-20">
@@ -28,9 +34,9 @@ export default function ProjectTimeline() {
       {/* Bottom Glowing Node */}
       <motion.div
         style={{
-          scale: useTransform(scrollYProgress, [0.95, 1], [0.9, 1]),
+          scale: useTransform(scrollYProgressSpring, [0.95, 1], [0.9, 1]),
           opacity: 1,
-          boxShadow: useTransform(scrollYProgress, [0.95, 1], [
+          boxShadow: useTransform(scrollYProgressSpring, [0.95, 1], [
             "0 0 0px rgba(59,130,246,0)",
             "0 0 20px rgba(59,130,246,1)"
           ])
