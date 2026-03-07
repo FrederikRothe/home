@@ -1,0 +1,62 @@
+---
+import { Image } from 'astro:assets';
+import awsIcon from '../assets/tech-icons/aws.png';
+import terraformIcon from '../assets/tech-icons/terraform.png';
+import dockerIcon from '../assets/tech-icons/docker.png';
+import tsIcon from '../assets/tech-icons/ts.png';
+import pythonIcon from '../assets/tech-icons/python.png';
+import javaIcon from '../assets/tech-icons/java.png';
+import kotlinIcon from '../assets/tech-icons/kotlin.png';
+import n8nIcon from '../assets/tech-icons/n8n.png';
+import claudeIcon from '../assets/tech-icons/claude.png';
+import googleIcon from '../assets/tech-icons/google.png';
+
+const technologies = [
+  { name: 'AWS', src: awsIcon.src },
+  { name: 'Terraform', src: terraformIcon.src },
+  { name: 'Docker', src: dockerIcon.src },
+  { name: 'TypeScript', src: tsIcon.src },
+  { name: 'Python', src: pythonIcon.src },
+  { name: 'Java', src: javaIcon.src },
+  { name: 'Kotlin', src: kotlinIcon.src },
+  { name: 'N8N', src: n8nIcon.src },
+  { name: 'Claude', src: claudeIcon.src },
+  { name: 'Google Cloud', src: googleIcon.src },
+];
+---
+
+<span id="tech-swapper" class="inline-flex items-center ml-2 relative top-1">
+  <span id="tech-icon-container" class="transition-all duration-500 ease-in-out opacity-100 transform translate-y-0 cursor-help w-6 h-6 flex items-center justify-center">
+    <img id="tech-image" src={technologies[0].src} alt={technologies[0].name} title={technologies[0].name} class="max-w-full max-h-full object-contain" />
+  </span>
+</span>
+
+<script is:inline define:vars={{ technologies }}>
+  const container = document.getElementById('tech-icon-container');
+  const img = document.getElementById('tech-image');
+  let currentIndex = 1;
+
+  function updateTech() {
+    const tech = technologies[currentIndex];
+    
+    // Start fade out
+    container.classList.remove('opacity-100', 'translate-y-0');
+    container.classList.add('opacity-0', '-translate-y-2');
+
+    setTimeout(() => {
+      // Update content
+      img.src = tech.src;
+      img.alt = tech.name;
+      img.title = tech.name;
+
+      // Start fade in
+      container.classList.remove('opacity-0', '-translate-y-2');
+      container.classList.add('opacity-100', 'translate-y-0');
+
+      currentIndex = (currentIndex + 1) % technologies.length;
+    }, 500);
+  }
+
+  // Start interval
+  setInterval(updateTech, 3000);
+</script>
