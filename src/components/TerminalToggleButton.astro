@@ -1,0 +1,166 @@
+---
+import Terminal from './Terminal.astro';
+---
+<button id="terminal-toggle" class="tooltip" data-tooltip="⌘J">
+	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+		<polyline points="4 17 10 11 4 5"></polyline>
+		<line x1="12" y1="19" x2="20" y2="19"></line>
+	</svg>
+</button>
+
+<div id="terminal-modal" class="hidden">
+	<div id="terminal-overlay"></div>
+	<div id="terminal-window">
+		<div id="terminal-header">
+			<span>Terminal</span>
+			<button id="terminal-close">&times;</button>
+		</div>
+		<div id="terminal-body">
+			<Terminal />
+		</div>
+	</div>
+</div>
+
+<script>
+	const terminalToggle = document.getElementById('terminal-toggle');
+	const terminalModal = document.getElementById('terminal-modal');
+	const terminalOverlay = document.getElementById('terminal-overlay');
+	const terminalClose = document.getElementById('terminal-close');
+
+	function toggleTerminal() {
+		const isHidden = terminalModal?.classList.contains('hidden');
+		if (isHidden) {
+			terminalModal?.classList.remove('hidden');
+			document.body.style.overflow = 'hidden';
+			
+			// Give a small delay for the modal to be visible before fitting/focusing
+			setTimeout(() => {
+				window.dispatchEvent(new CustomEvent('terminal-fit'));
+				window.dispatchEvent(new CustomEvent('terminal-focus'));
+			}, 50);
+		} else {
+			terminalModal?.classList.add('hidden');
+			document.body.style.overflow = '';
+		}
+	}
+
+	terminalToggle?.addEventListener('click', toggleTerminal);
+	terminalOverlay?.addEventListener('click', toggleTerminal);
+	terminalClose?.addEventListener('click', toggleTerminal);
+
+	// Listen for toggle requests from terminal component
+	window.addEventListener('terminal-toggle-request', toggleTerminal);
+
+	window.addEventListener('keydown', (e) => {
+		if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'j') {
+			e.preventDefault();
+			toggleTerminal();
+		}
+		if (e.key === 'Escape' && !terminalModal?.classList.contains('hidden')) {
+			toggleTerminal();
+		}
+	});
+</script>
+
+<style>
+	#terminal-toggle {
+		border: 1px solid rgba(var(--gray), 20%);
+		background: rgba(var(--gray-light), 30%);
+		cursor: pointer;
+		padding: 0.5rem;
+		border-radius: 50%;
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: rgb(var(--black));
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+		margin-right: 0.5rem;
+	}
+
+	#terminal-toggle:hover {
+		background-color: rgba(var(--gray-light), 80%);
+		border-color: rgba(var(--gray), 40%);
+	}
+
+	:root.dark #terminal-toggle {
+		background: rgba(var(--gray-light), 50%);
+		border-color: rgba(255, 255, 255, 0.1);
+	}
+
+	#terminal-modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		z-index: 1000;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		pointer-events: none;
+	}
+
+	#terminal-modal:not(.hidden) {
+		pointer-events: auto;
+	}
+
+	#terminal-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(var(--black), 0.6);
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
+		z-index: -1;
+	}
+
+	#terminal-window {
+		width: 90vw;
+		max-width: 900px;
+		height: 60vh;
+		max-height: 600px;
+		background: #12161f;
+		border-radius: 12px;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+		border: 1px solid rgba(var(--gray), 0.3);
+		position: relative;
+	}
+
+	#terminal-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.5rem 1rem;
+		background: rgba(var(--gray-light), 0.1);
+		border-bottom: 1px solid rgba(var(--gray), 0.2);
+		color: #c8d2e6;
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+	}
+
+	#terminal-close {
+		background: none;
+		border: none;
+		color: inherit;
+		font-size: 1.5rem;
+		cursor: pointer;
+		line-height: 1;
+	}
+
+	#terminal-body {
+		flex: 1;
+		padding: 0.5rem;
+		overflow: hidden;
+	}
+
+	#terminal-modal.hidden {
+		display: none;
+	}
+</style>

@@ -1,0 +1,177 @@
+<div id="terminal-container" class="h-full w-full overflow-hidden">
+    <div id="terminal" class="h-full"></div>
+</div>
+
+<script>
+    import { Terminal } from '@xterm/xterm';
+    import { FitAddon } from '@xterm/addon-fit';
+    import '@xterm/xterm/css/xterm.css';
+
+    const terminalElement = document.getElementById('terminal');
+    const containerElement = document.getElementById('terminal-container');
+
+    if (terminalElement && containerElement) {
+        const getTheme = () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            return {
+                background: isDark ? '#12161f' : '#ffffff',
+                foreground: isDark ? '#c8d2e6' : '#222939',
+                cursor: isDark ? '#ffffff' : '#000000',
+                selectionBackground: isDark ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.3)',
+                black: isDark ? '#1e232d' : '#000000',
+                red: '#ff5c57',
+                green: '#5af78e',
+                yellow: '#f3f99d',
+                blue: '#57c7ff',
+                magenta: '#ff6ac1',
+                cyan: '#9aedfe',
+                white: isDark ? '#f1f1f0' : '#ffffff',
+            };
+        };
+
+        const term = new Terminal({
+            cursorBlink: true,
+            theme: getTheme(),
+            fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+            fontSize: 14,
+            lineHeight: 1.2,
+        });
+
+        const fitAddon = new FitAddon();
+        term.loadAddon(fitAddon);
+        term.open(terminalElement);
+
+        // Add custom key event handler to allow CMD+J and Escape to bubble up
+        term.attachCustomKeyEventHandler((event) => {
+            if (event.type === 'keydown') {
+                if (((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'j') || event.key === 'Escape') {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    window.dispatchEvent(new CustomEvent('terminal-toggle-request'));
+                    return false; // Don't handle in xterm
+                }
+            }
+            return true;
+        });
+        
+        // Initial fit and slight delay for better rendering
+        setTimeout(() => fitAddon.fit(), 0);
+
+        // Update container background to match terminal
+        const updateContainerBg = () => {
+            const theme = getTheme();
+            containerElement.style.backgroundColor = theme.background;
+        };
+        updateContainerBg();
+
+        // Listen for theme changes
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class') {
+                    const newTheme = getTheme();
+                    term.options.theme = newTheme;
+                    updateContainerBg();
+                }
+            });
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class'],
+        });
+
+        const prompt = '\r\n$ home git:(main) ➜ ';
+        const directories = ['/about', '/projects'];
+        let tabIndex = -1;
+
+        term.writeln('\x1b[1;37mWelcome to my corner of the internet!\x1b[0m');
+        term.writeln('Type \x1b[1;34mhelp\x1b[0m to see available commands.');
+        term.write(prompt.trimStart());
+
+        let input = '';
+        term.onData((data) => {
+            if (data === '\t') { // Tab completion
+                if (input.startsWith('cd ')) {
+                    tabIndex = (tabIndex + 1) % directories.length;
+                    const completion = directories[tabIndex];
+                    // Clear current input from terminal (everything after 'cd ')
+                    for (let i = 0; i < input.length - 3; i++) {
+                        term.write('\b \b');
+                    }
+                    input = 'cd ' + completion;
+                    term.write(completion);
+                }
+                return;
+            }
+
+            // Reset cycling for any other key
+            tabIndex = -1;
+
+            if (data === '\r') { // Enter
+                term.write('\r\n');
+                const command = input.trim().toLowerCase();
+                
+                if (command === 'help') {
+                    term.writeln('Available commands:');
+                    term.writeln('  \x1b[1;33mhelp\x1b[0m       - Show this help message');
+                    term.writeln('  \x1b[1;33mclear\x1b[0m      - Clear the terminal');
+                    term.writeln('  \x1b[1;33mls\x1b[0m         - List files');
+                    term.writeln('  \x1b[1;33mcd [dir]\x1b[0m   - Navigate to a page (Try: cd /projects)');
+                    term.writeln('\x1b[1;30m(Pro tip: Type "cd " then press Tab to cycle through pages)\x1b[0m');
+                } else if (command === 'clear') {
+                    term.clear();
+                } else if (command === 'ls') {
+                    term.writeln('about/  projects/');
+                } else if (command === 'cd projects' || command === 'cd /projects') {
+                    term.writeln('Navigating to projects...');
+                    setTimeout(() => {
+                        window.location.href = '/blog';
+                    }, 500);
+                } else if (command === 'cd about' || command === 'cd /about') {
+                    term.writeln('Navigating to about page...');
+                    setTimeout(() => {
+                        window.location.href = '/about';
+                    }, 500);
+                } else if (command.startsWith('cd ')) {
+                    const dir = command.substring(3).trim();
+                    if (dir === '..') {
+                        term.writeln('Already at root.');
+                    } else {
+                        term.writeln(`-bash: cd: ${dir}: No such file or directory`);
+                    }
+                } else if (command !== '') {
+                    term.writeln(`-bash: ${command}: command not found`);
+                }
+                
+                // Don't show prompt if we are redirecting
+                const isRedirecting =command === 'cd /projects' || command === 'cd /about';
+                if (!isRedirecting) {
+                    term.write(prompt.trimStart());
+                }
+                input = '';
+            } else if (data === '\u007f') { // Backspace
+                if (input.length > 0) {
+                    input = input.slice(0, -1);
+                    term.write('\b \b');
+                }
+            } else {
+                if (data.length === 1 && data.charCodeAt(0) >= 32) {
+                    input += data;
+                    term.write(data);
+                }
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            fitAddon.fit();
+        });
+
+        // Expose terminal methods via custom events
+        window.addEventListener('terminal-fit', () => {
+            fitAddon.fit();
+        });
+        window.addEventListener('terminal-focus', () => {
+            term.focus();
+        });
+    }
+</script>
