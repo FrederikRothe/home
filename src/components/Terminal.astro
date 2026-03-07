@@ -81,7 +81,7 @@
         });
 
         const prompt = '\r\n$ home git:(main) ➜ ';
-        const directories = ['/about', '/projects'];
+        const directories = ['/about', '/blog'];
         let tabIndex = -1;
 
         term.writeln('\x1b[1;37mWelcome to my corner of the internet!\x1b[0m');
@@ -116,14 +116,14 @@
                     term.writeln('  \x1b[1;33mhelp\x1b[0m       - Show this help message');
                     term.writeln('  \x1b[1;33mclear\x1b[0m      - Clear the terminal');
                     term.writeln('  \x1b[1;33mls\x1b[0m         - List files');
-                    term.writeln('  \x1b[1;33mcd [dir]\x1b[0m   - Navigate to a page (Try: cd /projects)');
+                    term.writeln('  \x1b[1;33mcd [dir]\x1b[0m   - Navigate to a page (Try: cd /blog)');
                     term.writeln('\x1b[1;30m(Pro tip: Type "cd " then press Tab to cycle through pages)\x1b[0m');
                 } else if (command === 'clear') {
                     term.clear();
                 } else if (command === 'ls') {
-                    term.writeln('about/  projects/');
-                } else if (command === 'cd projects' || command === 'cd /projects') {
-                    term.writeln('Navigating to projects...');
+                    term.writeln('about/  blog/');
+                } else if (command === 'cd blog' || command === 'cd /blog') {
+                    term.writeln('Navigating to blog...');
                     setTimeout(() => {
                         window.location.href = '/blog';
                     }, 500);
@@ -144,7 +144,7 @@
                 }
                 
                 // Don't show prompt if we are redirecting
-                const isRedirecting =command === 'cd /projects' || command === 'cd /about';
+                const isRedirecting =command === 'cd /blog' || command === 'cd /about';
                 if (!isRedirecting) {
                     term.write(prompt.trimStart());
                 }

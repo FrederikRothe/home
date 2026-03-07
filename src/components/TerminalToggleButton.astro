@@ -12,8 +12,13 @@ import Terminal from './Terminal.astro';
 	<div id="terminal-overlay"></div>
 	<div id="terminal-window">
 		<div id="terminal-header">
-			<span>Terminal</span>
-			<button id="terminal-close">&times;</button>
+			<div class="terminal-controls">
+				<div class="control red" id="terminal-close-red"></div>
+				<div class="control yellow" id="terminal-close-yellow"></div>
+				<div class="control green" id="terminal-expand"></div>
+			</div>
+			<span class="terminal-title">Terminal</span>
+			<div class="terminal-spacer"></div>
 		</div>
 		<div id="terminal-body">
 			<Terminal />
@@ -25,7 +30,10 @@ import Terminal from './Terminal.astro';
 	const terminalToggle = document.getElementById('terminal-toggle');
 	const terminalModal = document.getElementById('terminal-modal');
 	const terminalOverlay = document.getElementById('terminal-overlay');
-	const terminalClose = document.getElementById('terminal-close');
+	const terminalCloseRed = document.getElementById('terminal-close-red');
+	const terminalCloseYellow = document.getElementById('terminal-close-yellow');
+	const terminalExpand = document.getElementById('terminal-expand');
+	const terminalWindow = document.getElementById('terminal-window');
 
 	function toggleTerminal() {
 		const isHidden = terminalModal?.classList.contains('hidden');
@@ -46,7 +54,16 @@ import Terminal from './Terminal.astro';
 
 	terminalToggle?.addEventListener('click', toggleTerminal);
 	terminalOverlay?.addEventListener('click', toggleTerminal);
-	terminalClose?.addEventListener('click', toggleTerminal);
+	terminalCloseRed?.addEventListener('click', toggleTerminal);
+	terminalCloseYellow?.addEventListener('click', toggleTerminal);
+	
+	terminalExpand?.addEventListener('click', () => {
+		terminalWindow?.classList.toggle('expanded');
+		// Trigger fit after transition/resize
+		setTimeout(() => {
+			window.dispatchEvent(new CustomEvent('terminal-fit'));
+		}, 200);
+	});
 
 	// Listen for toggle requests from terminal component
 	window.addEventListener('terminal-toggle-request', toggleTerminal);
@@ -123,35 +140,77 @@ import Terminal from './Terminal.astro';
 		max-width: 900px;
 		height: 60vh;
 		max-height: 600px;
-		background: #12161f;
+		background: #ffffff;
 		border-radius: 12px;
 		overflow: hidden;
 		display: flex;
 		flex-direction: column;
-		box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+		box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
 		border: 1px solid rgba(var(--gray), 0.3);
 		position: relative;
+	}
+
+	#terminal-window.expanded {
+		width: 95vw;
+		max-width: 1200px;
+		height: 85vh;
+		max-height: 900px;
+	}
+
+	:root.dark #terminal-window {
+		background: #12161f;
+		box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 	}
 
 	#terminal-header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 0.5rem 1rem;
-		background: rgba(var(--gray-light), 0.1);
+		padding: 0.75rem 1rem;
+		background: rgba(var(--gray-light), 0.8);
 		border-bottom: 1px solid rgba(var(--gray), 0.2);
-		color: #c8d2e6;
+		color: rgb(var(--black));
 		font-family: var(--font-mono);
 		font-size: 0.8rem;
+		user-select: none;
 	}
 
-	#terminal-close {
-		background: none;
-		border: none;
-		color: inherit;
-		font-size: 1.5rem;
-		cursor: pointer;
-		line-height: 1;
+	:root.dark #terminal-header {
+		background: rgba(var(--gray-light), 0.15);
+		color: #c8d2e6;
+	}
+
+	.terminal-controls {
+		display: flex;
+		gap: 8px;
+		width: 52px;
+	}
+
+	.control {
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		cursor: default;
+	}
+
+	.red { background-color: #ff5f56; }
+	.yellow { background-color: #ffbd2e; }
+	.green { background-color: #27c93f; }
+
+	.red:hover, .yellow:hover, .green:hover { 
+		cursor: pointer; 
+		filter: brightness(0.9); 
+	}
+
+	.terminal-title {
+		flex: 1;
+		text-align: center;
+		font-weight: 500;
+		opacity: 0.8;
+	}
+
+	.terminal-spacer {
+		width: 52px;
 	}
 
 	#terminal-body {
