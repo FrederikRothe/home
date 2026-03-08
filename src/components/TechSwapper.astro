@@ -12,6 +12,7 @@ import claudeIcon from '../assets/tech-icons/claude.png';
 import googleIcon from '../assets/tech-icons/google.png';
 
 const technologies = [
+  { name: 'technologies', src: null },
   { name: 'AWS', src: awsIcon.src },
   { name: 'Terraform', src: terraformIcon.src },
   { name: 'Docker', src: dockerIcon.src },
@@ -21,42 +22,83 @@ const technologies = [
   { name: 'Kotlin', src: kotlinIcon.src },
   { name: 'N8N', src: n8nIcon.src },
   { name: 'Claude', src: claudeIcon.src },
-  { name: 'Google Cloud', src: googleIcon.src },
+  { name: 'GCP', src: googleIcon.src },
 ];
 ---
 
-<span id="tech-swapper" class="inline-flex items-center ml-2 relative top-1">
-  <span id="tech-icon-container" class="transition-all duration-500 ease-in-out opacity-100 transform translate-y-0 cursor-help w-6 h-6 flex items-center justify-center">
-    <img id="tech-image" src={technologies[0].src} alt={technologies[0].name} title={technologies[0].name} class="max-w-full max-h-full object-contain" />
+<span class="tech-swapper-container inline-flex relative overflow-hidden h-[1.5em] transition-[width] duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] select-none">
+  <span class="tech-reel flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]">
+    {technologies.map((tech) => (
+      <span class="tech-item flex items-center h-[1.5em] whitespace-nowrap w-max">
+        {tech.src && <img src={tech.src} alt="" class="w-[0.9em] h-[0.9em] mr-[0.3em] object-contain" />}
+        <strong class="text-black dark:text-white font-bold">{tech.name}</strong>
+      </span>
+    ))}
+    {/* Duplicate first item for seamless loop */}
+    <span class="tech-item flex items-center h-[1.5em] whitespace-nowrap w-max">
+      <strong class="text-black dark:text-white font-bold">{technologies[0].name}</strong>
+    </span>
   </span>
 </span>
 
-<script is:inline define:vars={{ technologies }}>
-  const container = document.getElementById('tech-icon-container');
-  const img = document.getElementById('tech-image');
-  let currentIndex = 1;
+<style>
+  .tech-swapper-container {
+    vertical-align: 0em;
+  }
+  .tech-item {
+    line-height: 1.5em;
+  }
+</style>
 
-  function updateTech() {
-    const tech = technologies[currentIndex];
-    
-    // Start fade out
-    container.classList.remove('opacity-100', 'translate-y-0');
-    container.classList.add('opacity-0', '-translate-y-2');
+<script is:inline define:vars={{ techCount: technologies.length }}>
+  function initTechSwapper() {
+    document.querySelectorAll('.tech-swapper-container').forEach(container => {
+      const reel = container.querySelector('.tech-reel');
+      const items = reel.querySelectorAll('.tech-item');
+      let currentIndex = 0;
 
-    setTimeout(() => {
-      // Update content
-      img.src = tech.src;
-      img.alt = tech.name;
-      img.title = tech.name;
+      function updateWidth() {
+        const currentItem = items[currentIndex];
+        if (currentItem) {
+          const width = currentItem.offsetWidth;
+          container.style.width = `${width}px`;
+        }
+      }
 
-      // Start fade in
-      container.classList.remove('opacity-0', '-translate-y-2');
-      container.classList.add('opacity-100', 'translate-y-0');
+      // Initial measurement
+      updateWidth();
 
-      currentIndex = (currentIndex + 1) % technologies.length;
-    }, 500);
+      function nextTech() {
+        currentIndex++;
+        
+        // Sync transitions
+        const transitionStyle = '0.7s cubic-bezier(0.76, 0, 0.24, 1)';
+        reel.style.transition = `transform ${transitionStyle}`;
+        container.style.transition = `width ${transitionStyle}`;
+        
+        reel.style.transform = `translateY(${currentIndex * -1.5}em)`;
+        
+        updateWidth();
+
+        if (currentIndex === techCount) {
+          setTimeout(() => {
+            reel.style.transition = 'none';
+            container.style.transition = 'none';
+            currentIndex = 0;
+            reel.style.transform = `translateY(0)`;
+            updateWidth();
+          }, 700);
+        }
+      }
+
+      setInterval(nextTech, 3000);
+      window.addEventListener('resize', updateWidth);
+      
+      if (document.fonts) {
+        document.fonts.ready.then(updateWidth);
+      }
+    });
   }
 
-  // Start interval
-  setInterval(updateTech, 3000);
+  initTechSwapper();
 </script>

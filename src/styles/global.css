@@ -100,7 +100,7 @@ body {
 }
 
 main {
-	width: 720px;
+	width: 800px;
 	max-width: calc(100% - 2em);
 	margin: auto;
 	padding: 3em 1em;
@@ -134,6 +134,7 @@ h5 {
 strong,
 b {
 	font-weight: 700;
+	color: rgb(var(--black));
 }
 a {
 	color: var(--accent);
