@@ -75,36 +75,38 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		</style>
 	</head>
 	<body>
-		<Header />
-		<main>
-			<section class="hero-section pt-20 md:-mx-12 lg:-mx-24">
-				<h1 class="text-7xl md:text-8xl font-black mb-12 tracking-tighter leading-[0.9]">
-					Hej, I'm Frederik.
-				</h1>
-				<div class="welcome-text max-w-5xl space-y-12">
-					<p class="text-3xl md:text-4xl leading-snug text-gray-700 dark:text-gray-500">
-						I'm a <strong class="text-black dark:text-white font-black">software engineer</strong> based in <strong class="text-black dark:text-white font-black">Copenhagen, Denmark</strong>. 
-					</p>
-					<p class="text-2xl md:text-3xl leading-loose text-gray-600 dark:text-gray-500">
-						I'm passionate about building software that makes a <strong class="text-black dark:text-white font-bold">difference</strong> and love to explore <TechSwapper /> while doing so.
-					</p>
-				</div>
+		<div class="content-wrapper">
+			<Header />
+			<main>
+				<section class="hero-section pt-20 md:-mx-12 lg:-mx-24">
+					<h1 class="text-7xl md:text-8xl font-black mb-12 tracking-tighter leading-[0.9]">
+						Hej, I'm Frederik.
+					</h1>
+					<div class="welcome-text max-w-5xl space-y-12">
+						<p class="text-3xl md:text-4xl leading-snug text-gray-700 dark:text-gray-500">
+							I'm a <strong class="text-black dark:text-white font-black">software engineer</strong> based in <strong class="text-black dark:text-white font-black">Copenhagen, Denmark</strong>. 
+						</p>
+						<p class="text-2xl md:text-3xl leading-loose text-gray-600 dark:text-gray-500">
+							I'm passionate about building software that makes a <strong class="text-black dark:text-white font-bold">difference</strong> and love to explore <TechSwapper /> while doing so.
+						</p>
+					</div>
 
-			</section>
+				</section>
 
-			<LandingPageCard 
-				title="It's that deep!" 
-				expansion='not'
-				description="I'm working on several projects around Denmark and love to travel for work when it makes sense. I'm always open for new opportunities!"
-				flipper={false}
-			/>
-			<LandingPageCard 
-				title="What's cup?" 
-				expansion="in my"
-				description="While based in Copenhagen, my work extends globally. I collaborate with clients and teams worldwide, ensuring that distance is never a barrier to delivering exceptional results."
-				flipper={true}
-			/>
-		</main>
+				<LandingPageCard 
+					title="It's that deep!" 
+					expansion='not'
+					description="I'm working on several projects around Denmark and love to travel for work when it makes sense. I'm always open for new opportunities!"
+					flipper={false}
+				/>
+				<LandingPageCard 
+					title="What's cup?" 
+					expansion="in my"
+					description="I'm currently sipping on [insert bean] from [insert roastery]. I'm always on the lookout for the next great cup, just check out my track record!"
+					flipper={true}
+				/>
+			</main>
+		</div>
 		<Footer />
 	</body>
 </html>

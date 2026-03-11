@@ -93,9 +93,25 @@ body {
 	font-size: 20px;
 	line-height: 1.7;
 	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 }
 
 :root.dark body {
+	background-color: #12161f;
+}
+
+/* Added for Sticky Reveal Footer */
+.content-wrapper {
+	position: relative;
+	z-index: 10;
+	background-color: #fff; /* Match body background */
+	flex: 1;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+:root.dark .content-wrapper {
 	background-color: #12161f;
 }
 

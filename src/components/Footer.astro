@@ -14,13 +14,33 @@ const today = new Date();
 				></path></svg
 			>
 		</a>
+		<a href="https://www.linkedin.com/in/frederik-rothe/" target="_blank">
+			<span class="sr-only">Go to my LinkedIn</span>
+			<svg viewBox="0 0 24 24" aria-hidden="true" width="32" height="32"
+				><path
+					fill="currentColor"
+					d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+				></path></svg
+			>
+		</a>
 	</div>
 </footer>
+
 <style>
 	footer {
-		padding: 2em 1em 6em 1em;
-		color: rgb(var(--gray));
+		padding: 4rem 1rem;
+		color: rgb(var(--gray-dark));
 		text-align: center;
+		position: sticky;
+		bottom: 0;
+		z-index: 0;
+		width: 100%;
+		background-color: rgb(var(--gray-light));
+		min-height: 300px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 	}
 	.social-links {
 		display: flex;
@@ -30,9 +50,10 @@ const today = new Date();
 	}
 	.social-links a {
 		text-decoration: none;
-		color: rgb(var(--gray));
+		color: rgb(var(--gray-dark));
+		transition: color 0.2s ease;
 	}
 	.social-links a:hover {
-		color: rgb(var(--gray-dark));
+		color: var(--accent);
 	}
 </style>
