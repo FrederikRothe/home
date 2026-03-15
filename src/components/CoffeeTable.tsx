@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import type { Coffee } from '../types/coffee';
 
 interface Props {
@@ -92,7 +92,7 @@ export default function CoffeeTable({ initialCoffees }: Props) {
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="border-b-2 border-[rgba(var(--gray),20%)]">
-              <th className="py-4 px-2 font-bold text-[rgb(var(--gray-dark))] w-12 text-xs uppercase tracking-wider">Img</th>
+              <th className="py-4 px-2 font-bold text-[rgb(var(--gray-dark))] w-12 text-xs uppercase tracking-wider"></th>
               <th className="py-4 px-2 font-bold text-[rgb(var(--gray-dark))] text-xs uppercase tracking-wider">
                 Name
               </th>

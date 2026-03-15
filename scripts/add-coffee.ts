@@ -53,7 +53,7 @@ async function extractWithGemini(url: string, html: string) {
     `;
 
     const result = await model.generateContent(prompt);
-    const response = await result.response;
+    const response = result.response;
     return JSON.parse(response.text());
 }
 
