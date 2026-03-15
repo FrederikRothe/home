@@ -5,6 +5,19 @@ import type { Coffee } from '../types/coffee';
 
 const CSV_PATH = path.resolve('./src/data/coffee.csv');
 
+type CsvRecord = {
+  id: string;
+  name: string;
+  roaster: string;
+  origin: string;
+  roastLevel: string;
+  tastingNotes: string;
+  rating: string;
+  dateTried: string;
+  url: string;
+  imageUrl: string;
+};
+
 export async function getAllCoffees(): Promise<Coffee[]> {
   try {
     const fileContent = await fs.readFile(CSV_PATH, 'utf-8');
@@ -14,7 +27,7 @@ export async function getAllCoffees(): Promise<Coffee[]> {
     });
 
     return records
-      .map((record: any) => ({
+      .map((record: CsvRecord) => ({
         id: record.id,
         name: record.name,
         roaster: record.roaster,
@@ -39,4 +52,3 @@ export async function getLatestCoffee(): Promise<Coffee | null> {
   const coffees = await getAllCoffees();
   return coffees.length > 0 ? coffees[0] : null;
 }
-

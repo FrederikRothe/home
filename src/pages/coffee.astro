@@ -3,13 +3,12 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
-import { getAllCoffees, getLatestCoffee } from '../lib/coffeeService';
-import FormattedDate from '../components/FormattedDate.astro';
+import { getAllCoffees } from '../lib/coffeeService';
 import CoffeeTable from '../components/CoffeeTable';
 import CurrentCoffeeCard from '../components/CurrentCoffeeCard.astro';
 
 const allCoffees = await getAllCoffees();
-const latestCoffee = await getLatestCoffee();
+const latestCoffee = allCoffees[0] ?? null;
 ---
 
 <!doctype html>
