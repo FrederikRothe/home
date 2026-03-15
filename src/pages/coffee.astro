@@ -1,0 +1,110 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+import { getAllCoffees, getLatestCoffee } from '../lib/coffeeService';
+import FormattedDate from '../components/FormattedDate.astro';
+
+const allCoffees = await getAllCoffees();
+const latestCoffee = await getLatestCoffee();
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Coffee Log | ${SITE_TITLE}`} description="A log of coffee beans I have tried over the years." />
+		<style>
+			.content-wrapper {
+				min-height: 110vh;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="content-wrapper">
+			<Header />
+			<main class="max-w-5xl mx-auto px-4 md:px-0 py-12">
+				<h1 class="text-5xl md:text-6xl font-black mb-8 tracking-tighter">
+					Coffee
+				</h1>
+				<p class="text-xl text-[rgb(var(--gray))] mb-12">
+					A personal log of the different coffee beans I've tried throughout the years.
+				</p>
+
+				{latestCoffee && (
+					<section class="mb-16">
+						<h2 class="text-3xl font-bold mb-6">Currently Sipping</h2>
+						<div class="bg-[rgb(var(--gray-light))] rounded-2xl p-8 shadow-sm">
+							<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+								<div>
+									<h3 class="text-2xl font-black mb-2">{latestCoffee.name}</h3>
+									<p class="text-xl text-[rgb(var(--gray-dark))] mb-4">
+										Roasted by {latestCoffee.url ? (
+											<a href={latestCoffee.url} target="_blank" rel="noopener noreferrer" class="underline hover:text-[rgb(var(--accent))]">
+												{latestCoffee.roaster}
+											</a>
+										) : (
+											<span class="font-medium">{latestCoffee.roaster}</span>
+										)}
+									</p>
+									<div class="flex flex-wrap gap-2 mb-4">
+										<span class="px-3 py-1 bg-[rgba(var(--gray),20%)] rounded-full text-sm font-medium text-[rgb(var(--gray-dark))]">
+											{latestCoffee.origin}
+										</span>
+										<span class="px-3 py-1 bg-[rgba(var(--gray),20%)] rounded-full text-sm font-medium text-[rgb(var(--gray-dark))]">
+											{latestCoffee.roastLevel} Roast
+										</span>
+									</div>
+									<p class="text-[rgb(var(--gray))]">
+										<strong class="text-[rgb(var(--black))]">Tasting Notes:</strong> {latestCoffee.tastingNotes.join(', ')}
+									</p>
+								</div>
+								<div class="text-left md:text-right">
+									<div class="text-4xl font-black text-[rgb(var(--black))] mb-2">
+										{latestCoffee.rating}/10
+									</div>
+									<div class="text-sm text-[rgb(var(--gray))]">
+										Started: <FormattedDate date={latestCoffee.dateTried} />
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				)}
+
+				<section>
+					<h2 class="text-3xl font-bold mb-6">Beans of the past</h2>
+					{allCoffees.length > 0 ? (
+						<div class="overflow-x-auto">
+							<table class="w-full text-left border-collapse">
+								<thead>
+									<tr class="border-b-2 border-[rgba(var(--gray),20%)]">
+										<th class="py-4 px-2 font-bold text-[rgb(var(--gray-dark))]">Name</th>
+										<th class="py-4 px-2 font-bold text-[rgb(var(--gray-dark))]">Roaster</th>
+										<th class="py-4 px-2 font-bold text-[rgb(var(--gray-dark))]">Origin</th>
+										<th class="py-4 px-2 font-bold text-[rgb(var(--gray-dark))] hidden sm:table-cell">Notes</th>
+										<th class="py-4 px-2 font-bold text-[rgb(var(--gray-dark))]">Rating</th>
+									</tr>
+								</thead>
+								<tbody>
+									{allCoffees.map((coffee) => (
+										<tr class="border-b border-[rgba(var(--gray),10%)] hover:bg-[rgba(var(--gray-light),50%)] transition-colors">
+											<td class="py-4 px-2 font-medium text-[rgb(var(--black))]">{coffee.name}</td>
+											<td class="py-4 px-2 text-[rgb(var(--gray-dark))]">{coffee.roaster}</td>
+											<td class="py-4 px-2 text-[rgb(var(--gray-dark))]">{coffee.origin}</td>
+											<td class="py-4 px-2 hidden sm:table-cell text-sm text-[rgb(var(--gray))]">{coffee.tastingNotes.join(', ')}</td>
+											<td class="py-4 px-2 font-medium text-[rgb(var(--black))]">{coffee.rating}</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
+						</div>
+					) : (
+						<p class="text-[rgb(var(--gray))]">No coffee logged yet.</p>
+					)}
+				</section>
+			</main>
+		</div>
+		<Footer />
+	</body>
+</html>

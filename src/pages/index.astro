@@ -7,6 +7,9 @@ import LandingPageCard from '../components/LandingPageCard.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import cloudIconUrl from '../assets/icons/cute-cloud-with-headband-meditating-mental-health-and-balance-calm-and-peace.json?url';
 import coffeeIcon from '../assets/icons/handy-cup-of-coffee.svg';
+import { getLatestCoffee } from '../lib/coffeeService';
+
+const latestCoffee = await getLatestCoffee();
 ---
 
 <!doctype html>
@@ -48,10 +51,32 @@ import coffeeIcon from '../assets/icons/handy-cup-of-coffee.svg';
 				<LandingPageCard 
 					title="What's cup?" 
 					expansion="in my"
-					description="I'm currently sipping on [insert bean] from [insert roastery]. I'm always on the lookout for the next great cup, just check out my track record!"
 					flipper={true}
 					MyIcon={coffeeIcon}
-				/>
+				>
+					<p class="text-2xl leading-relaxed text-[rgb(var(--gray-dark))]">
+						I'm currently sipping on {latestCoffee ? (
+							<>
+								{latestCoffee.url ? (
+									<a 
+										href={latestCoffee.url} 
+										target="_blank" 
+										rel="noopener noreferrer"
+										class="text-[rgb(var(--black))] font-bold underline decoration-2 underline-offset-4 hover:opacity-70 transition-opacity"
+									>
+										{latestCoffee.name}
+									</a>
+								) : (
+									<span class="text-[rgb(var(--black))] font-bold underline decoration-2 underline-offset-4">
+										{latestCoffee.name}
+									</span>
+								)} from {latestCoffee.roaster}
+							</>
+						) : (
+							<span class="text-[rgb(var(--black))] font-bold underline decoration-2 underline-offset-4">some great coffee</span>
+						)}. I'm always on the lookout for the next great cup, just check out <a href="/coffee" class="text-[rgb(var(--black))] font-bold underline decoration-2 underline-offset-4 hover:opacity-70 transition-opacity">my track record</a>!
+					</p>
+				</LandingPageCard>
 			</main>
 		</div>
 		<Footer />
