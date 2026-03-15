@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "add-coffee": "tsx scripts/add-coffee.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
@@ -15,6 +16,7 @@
     "@astrojs/rss": "^4.0.15",
     "@astrojs/sitemap": "^3.7.0",
     "@astrojs/vercel": "^9.0.4",
+    "@google/generative-ai": "^0.24.1",
     "@tailwindcss/vite": "^4.2.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
@@ -22,6 +24,7 @@
     "@xterm/xterm": "^6.0.0",
     "astro": "^5.17.1",
     "csv-parse": "^6.1.0",
+    "dotenv": "^17.3.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "sharp": "^0.34.3",
@@ -29,6 +32,8 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@types/csv-parse": "^1.1.12"
+    "@types/csv-parse": "^1.1.12",
+    "@types/node": "^25.5.0",
+    "tsx": "^4.21.0"
   }
 }

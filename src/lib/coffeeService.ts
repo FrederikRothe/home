@@ -26,6 +26,7 @@ export async function getAllCoffees(): Promise<Coffee[]> {
         rating: Number(record.rating),
         dateTried: new Date(record.dateTried),
         url: record.url || undefined,
+        imageUrl: record.imageUrl || undefined,
       }))
       .sort((a, b) => b.dateTried.getTime() - a.dateTried.getTime());
   } catch (error) {

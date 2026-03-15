@@ -8,4 +8,5 @@ export interface Coffee {
   rating: number; // e.g., out of 10
   dateTried: Date;
   url?: string;
+  imageUrl?: string;
 }
