@@ -1,11 +1,12 @@
 ---
-import { Image } from 'astro:assets';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import TechSwapper from '../components/TechSwapper.astro';
 import LandingPageCard from '../components/LandingPageCard.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import cloudIconUrl from '../assets/icons/cute-cloud-with-headband-meditating-mental-health-and-balance-calm-and-peace.json?url';
+import coffeeIcon from '../assets/icons/handy-cup-of-coffee.svg';
 ---
 
 <!doctype html>
@@ -78,15 +79,15 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		<div class="content-wrapper">
 			<Header />
 			<main>
-				<section class="hero-section pt-20 md:-mx-12 lg:-mx-24">
+				<section class="hero-section pt-20 md:-mx-12 lg:-mx-24 ">
 					<h1 class="text-7xl md:text-8xl font-black mb-12 tracking-tighter leading-[0.9]">
 						Hej, I'm Frederik.
 					</h1>
 					<div class="welcome-text max-w-5xl space-y-12">
-						<p class="text-3xl md:text-4xl leading-snug text-gray-700 dark:text-gray-500">
+						<p class="text-3xl md:text-4xl leading-snug text-gray-400 dark:text-gray-500">
 							I'm a <strong class="text-black dark:text-white font-black">software engineer</strong> based in <strong class="text-black dark:text-white font-black">Copenhagen, Denmark</strong>. 
 						</p>
-						<p class="text-2xl md:text-3xl leading-loose text-gray-600 dark:text-gray-500">
+						<p class="text-2xl md:text-3xl leading-loose text-gray-400 dark:text-gray-500">
 							I'm passionate about building software that makes a <strong class="text-black dark:text-white font-bold">difference</strong> and love to explore <TechSwapper /> while doing so.
 						</p>
 					</div>
@@ -94,16 +95,32 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				</section>
 
 				<LandingPageCard 
-					title="It's that deep!" 
-					expansion='not'
+					title="Take a breath!" 
+					expansion='deep'
 					description="I'm working on several projects around Denmark and love to travel for work when it makes sense. I'm always open for new opportunities!"
 					flipper={false}
+					MyIcon={cloudIconUrl}
 				/>
 				<LandingPageCard 
 					title="What's cup?" 
 					expansion="in my"
 					description="I'm currently sipping on [insert bean] from [insert roastery]. I'm always on the lookout for the next great cup, just check out my track record!"
 					flipper={true}
+					MyIcon={coffeeIcon}
+				/>
+				<LandingPageCard 
+					title="What's cup?" 
+					expansion="in my"
+					description="I'm currently sipping on [insert bean] from [insert roastery]. I'm always on the lookout for the next great cup, just check out my track record!"
+					flipper={true}
+					MyIcon={coffeeIcon}
+				/>
+				<LandingPageCard 
+					title="What's cup?" 
+					expansion="in my"
+					description="I'm currently sipping on [insert bean] from [insert roastery]. I'm always on the lookout for the next great cup, just check out my track record!"
+					flipper={true}
+					MyIcon={coffeeIcon}
 				/>
 			</main>
 		</div>
