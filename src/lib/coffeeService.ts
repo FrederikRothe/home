@@ -21,13 +21,13 @@ type CsvRecord = {
 export async function getAllCoffees(): Promise<Coffee[]> {
   try {
     const fileContent = await fs.readFile(CSV_PATH, 'utf-8');
-    const records: CsvRecord[] = parse(fileContent, {
+    const records : CsvRecord[] = parse(fileContent, {
       columns: true,
       skip_empty_lines: true,
     });
 
     return records
-      .map((record) => ({
+      .map((record: CsvRecord) => ({
         id: record.id,
         name: record.name,
         roaster: record.roaster,

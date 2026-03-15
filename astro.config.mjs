@@ -14,7 +14,6 @@ export default defineConfig({
   integrations: [mdx(), sitemap(), react()],
 
   vite: {
-    // @ts-ignore
     plugins: [tailwindcss()],
   },
 
