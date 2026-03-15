@@ -14,64 +14,16 @@ import coffeeIcon from '../assets/icons/handy-cup-of-coffee.svg';
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
+			.content-wrapper {
+				min-height: 110vh;
+			}
 			.hero-section {
-				margin-bottom: 3rem;
+				margin-bottom: 8rem;
 			}
 			.welcome-text {
 				font-size: 1.25rem;
 				line-height: 1.75;
 				color: rgb(var(--gray-dark));
-			}
-			.illustration-container {
-				width: 100%;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-				margin-top: 3rem;
-				padding: 2rem;
-				border-radius: 16px;
-				position: relative;
-				border: 1px solid rgba(var(--gray-light), 0.5);
-				background: rgba(var(--gray-light), 0.1);
-			}
-			:root.dark .illustration-container {
-				border-color: rgba(var(--gray-dark), 0.3);
-				background: rgba(var(--gray-dark), 0.1);
-			}
-			.location-illustration {
-				max-width: 100%;
-				height: auto;
-				max-height: 450px;
-				object-fit: contain;
-			}
-			.credit {
-				margin-top: 1.5rem;
-				font-size: 0.875rem;
-				color: rgb(var(--gray));
-				text-align: center;
-			}
-			.credit a {
-				color: inherit;
-				text-decoration: underline;
-			}
-			.map-overlay {
-				position: absolute;
-				bottom: 1.5rem;
-				right: 1.5rem;
-				background: rgba(255, 255, 255, 0.9);
-				padding: 0.5rem 1rem;
-				border-radius: 9999px;
-				font-weight: 600;
-				font-size: 0.875rem;
-				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-				pointer-events: none;
-				backdrop-filter: blur(4px);
-				color: #000;
-			}
-			:root.dark .map-overlay {
-				background: rgba(18, 22, 31, 0.9);
-				color: #fff;
 			}
 		</style>
 	</head>
@@ -93,28 +45,6 @@ import coffeeIcon from '../assets/icons/handy-cup-of-coffee.svg';
 					</div>
 
 				</section>
-
-				<LandingPageCard 
-					title="Take a breath!" 
-					expansion='deep'
-					description="I'm working on several projects around Denmark and love to travel for work when it makes sense. I'm always open for new opportunities!"
-					flipper={false}
-					MyIcon={cloudIconUrl}
-				/>
-				<LandingPageCard 
-					title="What's cup?" 
-					expansion="in my"
-					description="I'm currently sipping on [insert bean] from [insert roastery]. I'm always on the lookout for the next great cup, just check out my track record!"
-					flipper={true}
-					MyIcon={coffeeIcon}
-				/>
-				<LandingPageCard 
-					title="What's cup?" 
-					expansion="in my"
-					description="I'm currently sipping on [insert bean] from [insert roastery]. I'm always on the lookout for the next great cup, just check out my track record!"
-					flipper={true}
-					MyIcon={coffeeIcon}
-				/>
 				<LandingPageCard 
 					title="What's cup?" 
 					expansion="in my"

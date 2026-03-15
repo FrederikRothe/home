@@ -54,10 +54,6 @@ const restOfTitle = titleWords.slice(1).join(' ');
   </div>
 </div>
 
-<style>
-  /* No default background styles to ensure it blends perfectly */
-</style>
-
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
 <script>
@@ -67,7 +63,7 @@ const restOfTitle = titleWords.slice(1).join(' ');
       if (card.hasAttribute('data-lottie-setup')) return;
       card.setAttribute('data-lottie-setup', 'true');
 
-      const player = card.querySelector('lottie-player');
+      const player = card.querySelector('lottie-player') as any;
       let isHovered = false;
       let isIntersecting = false;
 
