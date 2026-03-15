@@ -80,8 +80,16 @@
             attributeFilter: ['class'],
         });
 
-        const prompt = '\r\n$ home git:(main) ➜ ';
-        const directories = ['/about', '/blog'];
+        const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+        const prompt = `\r\n$ home${currentPath === '/' ? '' : currentPath} git:(main) ➜ `;
+        
+        // Filter directories based on current location
+        const allDirectories = ['/coffee', '/'];
+        const directories = allDirectories.filter(dir => {
+            if (currentPath === '/') return dir !== '/';
+            return dir !== currentPath;
+        });
+
         let tabIndex = -1;
 
         term.writeln('\x1b[1;37mWelcome to my corner of the internet!\x1b[0m');
@@ -116,26 +124,45 @@
                     term.writeln('  \x1b[1;33mhelp\x1b[0m       - Show this help message');
                     term.writeln('  \x1b[1;33mclear\x1b[0m      - Clear the terminal');
                     term.writeln('  \x1b[1;33mls\x1b[0m         - List files');
-                    term.writeln('  \x1b[1;33mcd [dir]\x1b[0m   - Navigate to a page (Try: cd /blog)');
-                    term.writeln('\x1b[1;30m(Pro tip: Type "cd " then press Tab to cycle through pages)\x1b[0m');
+                    term.writeln('  \x1b[1;33mcd [dir]\x1b[0m   - Navigate to a page');
+                    term.writeln('\x1b[1;30m(Pro tip: Type "cd " then press Tab to cycle through available pages)\x1b[0m');
                 } else if (command === 'clear') {
                     term.clear();
                 } else if (command === 'ls') {
-                    term.writeln('about/  blog/');
-                } else if (command === 'cd blog' || command === 'cd /blog') {
-                    term.writeln('Navigating to blog...');
-                    setTimeout(() => {
-                        window.location.href = '/blog';
-                    }, 500);
-                } else if (command === 'cd about' || command === 'cd /about') {
-                    term.writeln('Navigating to about page...');
-                    setTimeout(() => {
-                        window.location.href = '/about';
-                    }, 500);
+                    if (currentPath === '/') {
+                        term.writeln('coffee/');
+                    } else {
+                        term.writeln('..');
+                    }
+                } else if (command === 'cd coffee' || command === 'cd /coffee') {
+                    if (currentPath === '/coffee') {
+                        term.writeln('Already here.');
+                    } else {
+                        term.writeln('Navigating to coffee tracker...');
+                        setTimeout(() => {
+                            window.location.href = '/coffee';
+                        }, 500);
+                    }
+                } else if (command === 'cd /' || command === 'cd ~') {
+                    if (currentPath === '/') {
+                        term.writeln('Already at root.');
+                    } else {
+                        term.writeln('Navigating to home...');
+                        setTimeout(() => {
+                            window.location.href = '/';
+                        }, 500);
+                    }
                 } else if (command.startsWith('cd ')) {
                     const dir = command.substring(3).trim();
                     if (dir === '..') {
-                        term.writeln('Already at root.');
+                        if (currentPath === '/') {
+                            term.writeln('Already at root.');
+                        } else {
+                            term.writeln('Navigating to home...');
+                            setTimeout(() => {
+                                window.location.href = '/';
+                            }, 500);
+                        }
                     } else {
                         term.writeln(`-bash: cd: ${dir}: No such file or directory`);
                     }
@@ -144,7 +171,10 @@
                 }
                 
                 // Don't show prompt if we are redirecting
-                const isRedirecting =command === 'cd /blog' || command === 'cd /about';
+                const isRedirecting = 
+                    (command === 'cd /coffee' || command === 'cd coffee') && currentPath !== '/coffee' || 
+                    ((command === 'cd /' || command === 'cd ~' || command === 'cd ..') && currentPath !== '/');
+                
                 if (!isRedirecting) {
                     term.write(prompt.trimStart());
                 }

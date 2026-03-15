@@ -2,6 +2,8 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import dotenv from 'dotenv';
+import * as readline from 'node:readline/promises';
+import { stdin as input, stdout as output } from 'node:process';
 
 dotenv.config();
 
@@ -29,7 +31,7 @@ async function extractWithGemini(url: string, html: string) {
     const prompt = `
     Extract coffee product details from the following HTML content of a roaster's website: ${url}.
     Focus on these fields:
-    - name (the name of the coffee)
+    - name (the name of the coffee, not including any weight or size details)
     - roaster (the name of the coffee roaster)
     - origin (the country or region, e.g., "Ethiopia" or "Huila, Colombia")
     - roastLevel (Light, Medium-Light, Medium, Medium-Dark, or Dark)
@@ -88,7 +90,11 @@ async function addCoffee() {
         const roaster = `"${data.roaster.replace(/"/g, '""')}"`;
         const origin = `"${data.origin.replace(/"/g, '""')}"`;
         const notes = `"${data.tastingNotes.join(', ').replace(/"/g, '""')}"`;
-        const rating = 0; // Default rating for new coffee
+
+        const rl = readline.createInterface({ input, output });
+        const ratingStr = await rl.question('⭐️ Enter a rating for this coffee (0-10): ');
+        const rating = parseInt(ratingStr) || 0;
+        rl.close();
 
         const newEntry = `${nextId},${name},${roaster},${origin},${data.roastLevel},${notes},${rating},${date},${url},${data.imageUrl}`;
 
@@ -100,6 +106,7 @@ async function addCoffee() {
         console.log(`   Roaster: ${data.roaster}`);
         console.log(`   Origin:  ${data.origin}`);
         console.log(`   Notes:   ${data.tastingNotes.join(', ')}`);
+        console.log(`   Rating:  ${rating}/10`);
         console.log(`   Image:   ${data.imageUrl}`);
         console.log('\nUpdate your rating in src/data/coffee.csv whenever you like!');
 
@@ -109,3 +116,4 @@ async function addCoffee() {
 }
 
 addCoffee();
+
