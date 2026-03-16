@@ -2,7 +2,6 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { parse } from 'csv-parse/sync';
 import type { Coffee } from '../types/coffee';
-import type { brewMetrics } from '../types/brewMetrics';
 
 const CSV_PATH = path.resolve('./src/data/coffee.csv');
 
