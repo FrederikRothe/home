@@ -1,5 +1,7 @@
+import type { brewMetrics } from "./brewMetrics";
+
 export interface Coffee {
-  id: string;
+  id: number;
   name: string;
   roaster: string;
   origin: string;
@@ -9,4 +11,5 @@ export interface Coffee {
   dateTried: Date;
   url?: string;
   imageUrl?: string;
+  brewMetrics?: brewMetrics;
 }

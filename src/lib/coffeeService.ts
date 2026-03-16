@@ -2,44 +2,37 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { parse } from 'csv-parse/sync';
 import type { Coffee } from '../types/coffee';
+import type { brewMetrics } from '../types/brewMetrics';
 
 const CSV_PATH = path.resolve('./src/data/coffee.csv');
-
-type CsvRecord = {
-  id: string;
-  name: string;
-  roaster: string;
-  origin: string;
-  roastLevel: string;
-  tastingNotes: string;
-  rating: string;
-  dateTried: string;
-  url: string;
-  imageUrl: string;
-};
 
 export async function getAllCoffees(): Promise<Coffee[]> {
   try {
     const fileContent = await fs.readFile(CSV_PATH, 'utf-8');
-    const records : CsvRecord[] = parse(fileContent, {
+    const records : Coffee[] = parse(fileContent, {
       columns: true,
       skip_empty_lines: true,
     });
 
     return records
-      .map((record: CsvRecord) => ({
+      .map((record: Coffee) => ({
         id: record.id,
         name: record.name,
         roaster: record.roaster,
         origin: record.origin,
         roastLevel: record.roastLevel,
         tastingNotes: record.tastingNotes
-          ? record.tastingNotes.split(',').map((n: string) => n.trim())
+          ? record.tastingNotes
+              .toString()
+              .split(',')
+              .map((n: string) => n.trim())
+              .filter((n: string) => n.length > 0)
           : [],
         rating: Number(record.rating),
         dateTried: new Date(record.dateTried),
         url: record.url || undefined,
         imageUrl: record.imageUrl || undefined,
+        brewMetrics: record.brewMetrics || undefined,
       }))
       .sort((a, b) => b.dateTried.getTime() - a.dateTried.getTime());
   } catch (error) {
