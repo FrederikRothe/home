@@ -2,26 +2,34 @@
 interface Props {
 	title: string;
 	description: string;
+	year?: string;
 	tags?: string[];
 	href?: string;
 	github?: string;
 }
 
-const { title, description, tags = [], href, github } = Astro.props;
+const { title, description, year, tags = [], href, github } = Astro.props;
 ---
 
 <div class="project-card rounded-2xl overflow-hidden p-8 md:p-10 transition-all duration-300 hover:scale-[1.01] hover:shadow-xl group">
 	<div class="space-y-6">
-	<div class="flex justify-between items-center gap-8 md:gap-12">
-		<h3 class="text-3xl md:text-4xl font-black tracking-tighter text-[rgb(var(--black))] leading-none">
-		{href ? (
-			<a href={href} target="_blank" rel="noopener noreferrer" class="hover:text-[rgb(var(--accent))] transition-colors">
-			{title}
-			</a>
-		) : (
-			title
-		)}
-		</h3>
+	<div class="flex justify-between items-start gap-8 md:gap-12">
+		<div class="space-y-2">
+			{year && (
+				<span class="text-sm font-bold tracking-wider uppercase text-[rgb(var(--accent))] opacity-80">
+					{year}
+				</span>
+			)}
+			<h3 class="text-3xl md:text-4xl font-black tracking-tighter text-[rgb(var(--black))] leading-none">
+			{href ? (
+				<a href={href} target="_blank" rel="noopener noreferrer" class="hover:text-[rgb(var(--accent))] transition-colors">
+				{title}
+				</a>
+			) : (
+				title
+			)}
+			</h3>
+		</div>
 		{github && (
 		<a href={github} target="_blank" rel="noopener noreferrer" class="text-[rgb(var(--gray))] hover:text-[rgb(var(--black))] transition-transform duration-300 hover:scale-110 flex-shrink-0">
 			<span class="sr-only">GitHub Repository</span>
