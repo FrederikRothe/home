@@ -5,8 +5,8 @@ import Header from '../components/Header.astro';
 import TechSwapper from '../components/TechSwapper.astro';
 import LandingPageCard from '../components/LandingPageCard.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import cloudIconUrl from '../assets/icons/cute-cloud-with-headband-meditating-mental-health-and-balance-calm-and-peace.json?url';
 import coffeeIcon from '../assets/icons/handy-cup-of-coffee.svg';
+import screwIcon from '../assets/icons/handy-screw.svg';
 import { getLatestCoffee } from '../lib/coffeeService';
 
 const latestCoffee = await getLatestCoffee();
@@ -75,6 +75,20 @@ const latestCoffee = await getLatestCoffee();
 						) : (
 							<span class="text-[rgb(var(--black))] font-bold underline decoration-2 underline-offset-4">some great coffee</span>
 						)}. I'm always on the lookout for the next great cup, just check out <a href="/coffee" class="text-[rgb(var(--black))] font-bold underline decoration-2 underline-offset-4 hover:opacity-70 transition-opacity">my track record</a>!
+					</p>
+				</LandingPageCard>
+
+				<LandingPageCard 
+					title="Projects" 
+					flipper={false}
+					MyIcon={screwIcon}
+					iconScale="scale-75"
+					href="/projects"
+				>
+					<p class="text-2xl leading-relaxed text-[rgb(var(--gray-dark))]">
+						I love building tools and toys that solve real-world problems—or just satisfy my curiosity. 
+						From <strong class="text-[rgb(var(--black))]">productivity dashboards</strong> to <strong class="text-[rgb(var(--black))]">automation scripts</strong>, 
+						I'm always tinkering with new tech. Explore my collection of hobby projects.
 					</p>
 				</LandingPageCard>
 			</main>

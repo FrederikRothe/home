@@ -8,17 +8,18 @@ interface Props {
 	expansion?: string;
 	MyIcon: ImageMetadata | string;
 	href?: string;
+	iconScale?: string;
 }
 
 const { 
-  title = "", 
-  description = "",
-  flipper = false,
-  expansion = "",
-  MyIcon,
-  href
+	title = "", 
+	description = "",
+	flipper = false,
+	expansion = "",
+	MyIcon,
+	href,
+	iconScale = "scale-100"
 } = Astro.props;
-
 // Split title to insert expansion
 const titleWords = title.split(' ');
 const firstWord = titleWords[0];
@@ -28,153 +29,153 @@ const DURATION = 'duration-[1200ms]';
 const EASE = 'ease-[cubic-bezier(0.2,0.8,0.2,1)]';
 
 const outerClass = [
-  'landing-page-card group bg-transparent p-8 md:p-12',
-  'flex flex-col items-center gap-12 my-16',
-  `transition-all ${DURATION} ${EASE}`,
-  'opacity-70 grayscale-[30%] hover:opacity-100 data-[active=true]:opacity-100',
-  'hover:grayscale-0 data-[active=true]:grayscale-0 md:-mx-12 lg:-mx-24',
-  flipper ? 'md:flex-row-reverse' : 'md:flex-row',
-  href ? 'no-underline' : 'cursor-default',
+	'landing-page-card group bg-transparent p-8 md:p-12',
+	'flex flex-col items-center gap-12 my-16',
+	`transition-all ${DURATION} ${EASE}`,
+	'opacity-70 grayscale-[30%] hover:opacity-100 data-[active=true]:opacity-100',
+	'hover:grayscale-0 data-[active=true]:grayscale-0 md:-mx-12 lg:-mx-24',
+	flipper ? 'md:flex-row-reverse' : 'md:flex-row',
+	href ? 'no-underline' : 'cursor-default',
 ].join(' ');
 
 const iconClass = [
-  'flex-shrink-0 w-full md:w-2/5 max-w-[380px]',
-  `transition-transform ${DURATION} ${EASE}`,
-  'group-hover:translate-y-[-1rem] group-data-[active=true]:translate-y-[-1rem]',
-  'md:group-hover:translate-y-0 md:group-data-[active=true]:translate-y-0',
-  flipper
-    ? 'md:group-hover:translate-x-[2.5rem] md:group-data-[active=true]:translate-x-[2.5rem]'
-    : 'md:group-hover:translate-x-[-2.5rem] md:group-data-[active=true]:translate-x-[-2.5rem]',
+	'flex-shrink-0 w-full md:w-2/5 max-w-[380px]',
+	`transition-transform ${DURATION} ${EASE}`,
+	'group-hover:translate-y-[-1rem] group-data-[active=true]:translate-y-[-1rem]',
+	'md:group-hover:translate-y-0 md:group-data-[active=true]:translate-y-0',
+	flipper
+		? 'md:group-hover:translate-x-[2.5rem] md:group-data-[active=true]:translate-x-[2.5rem]'
+		: 'md:group-hover:translate-x-[-2.5rem] md:group-data-[active=true]:translate-x-[-2.5rem]',
 ].join(' ');
 
 const contentClass = [
-  'flex-grow flex flex-col justify-center',
-  `transition-transform ${DURATION} ${EASE}`,
-  'group-hover:translate-y-[1rem] group-data-[active=true]:translate-y-[1rem]',
-  'md:group-hover:translate-y-0 md:group-data-[active=true]:translate-y-0',
-  flipper
-    ? 'md:group-hover:translate-x-[-2.5rem] md:group-data-[active=true]:translate-x-[-2.5rem]'
-    : 'md:group-hover:translate-x-[2.5rem] md:group-data-[active=true]:translate-x-[2.5rem]',
+	'flex-grow flex flex-col justify-center',
+	`transition-transform ${DURATION} ${EASE}`,
+	'group-hover:translate-y-[1rem] group-data-[active=true]:translate-y-[1rem]',
+	'md:group-hover:translate-y-0 md:group-data-[active=true]:translate-y-0',
+	flipper
+		? 'md:group-hover:translate-x-[-2.5rem] md:group-data-[active=true]:translate-x-[-2.5rem]'
+		: 'md:group-hover:translate-x-[2.5rem] md:group-data-[active=true]:translate-x-[2.5rem]',
 ].join(' ');
 ---
 
 {href ? (
-  <a href={href} class={outerClass}>
-    <div class={iconClass}>
-      {typeof MyIcon === 'string' ? (
-        <lottie-player src={MyIcon} background="transparent" speed="1" class="w-full h-auto scale-[1.25] origin-center" loop></lottie-player>
-      ) : (
-        <Image src={MyIcon} alt="Illustration" class="w-full h-auto" />
-      )}
-    </div>
-    <div class={contentClass}>
-      <h2 class={`text-5xl font-bold tracking-tight text-[rgb(var(--black))] transition-transform ${DURATION} ${EASE} group-hover:-translate-y-2 group-data-[active=true]:-translate-y-2 flex items-baseline`}>
-        <span class={`transition-transform ${DURATION} ${EASE} group-hover:-translate-x-2 group-data-[active=true]:-translate-x-2`}>{firstWord}</span>
-        {expansion ? (
-          <span class={`inline-block max-w-[0.3em] group-hover:max-w-[5em] group-data-[active=true]:max-w-[5em] transition-[max-width] ${DURATION} ${EASE} overflow-hidden`}>
-            <span class={`inline-block translate-y-2 group-hover:translate-y-0 group-data-[active=true]:translate-y-0 opacity-0 group-hover:opacity-100 group-data-[active=true]:opacity-100 transition-all ${DURATION} ${EASE} whitespace-nowrap`}>
-              &nbsp;{expansion}&nbsp;
-            </span>
-          </span>
-        ) : (
-          <span class={`transition-transform ${DURATION} ${EASE} group-hover:scale-x-150 group-data-[active=true]:scale-x-150`}>&nbsp;</span>
-        )}
-        <span class={`transition-transform ${DURATION} ${EASE} group-hover:translate-x-2 group-data-[active=true]:translate-x-2`}>{restOfTitle}</span>
-      </h2>
-      <div class={`max-h-0 opacity-0 overflow-hidden transition-all ${DURATION} ${EASE} group-hover:max-h-[500px] group-data-[active=true]:max-h-[500px] group-hover:opacity-100 group-data-[active=true]:opacity-100 group-hover:mt-6 group-data-[active=true]:mt-6`}>
-        {description && (
-          <p class="text-2xl leading-relaxed text-gray-500 dark:text-gray-500">
-            {description}
-          </p>
-        )}
-        <slot />
-      </div>
-    </div>
-  </a>
+	<a href={href} class={outerClass}>
+		<div class={iconClass}>
+			{typeof MyIcon === 'string' ? (
+	<lottie-player src={MyIcon} background="transparent" speed="1" class="w-full h-auto scale-[1.25] origin-center" loop></lottie-player>
+			) : (
+	<Image src={MyIcon} alt="Illustration" class={`w-full h-auto ${iconScale}`} />
+			)}
+		</div>
+		<div class={contentClass}>
+			<h2 class={`text-5xl font-bold tracking-tight text-[rgb(var(--black))] transition-transform ${DURATION} ${EASE} group-hover:-translate-y-2 group-data-[active=true]:-translate-y-2 flex items-baseline`}>
+	<span class={`transition-transform ${DURATION} ${EASE} group-hover:-translate-x-2 group-data-[active=true]:-translate-x-2`}>{firstWord}</span>
+	{expansion ? (
+		<span class={`inline-block max-w-[0.3em] group-hover:max-w-[5em] group-data-[active=true]:max-w-[5em] transition-[max-width] ${DURATION} ${EASE} overflow-hidden`}>
+			<span class={`inline-block translate-y-2 group-hover:translate-y-0 group-data-[active=true]:translate-y-0 opacity-0 group-hover:opacity-100 group-data-[active=true]:opacity-100 transition-all ${DURATION} ${EASE} whitespace-nowrap`}>
+				&nbsp;{expansion}&nbsp;
+			</span>
+		</span>
+	) : (
+		<span class={`transition-transform ${DURATION} ${EASE} group-hover:scale-x-150 group-data-[active=true]:scale-x-150`}>&nbsp;</span>
+	)}
+	<span class={`transition-transform ${DURATION} ${EASE} group-hover:translate-x-2 group-data-[active=true]:translate-x-2`}>{restOfTitle}</span>
+			</h2>
+			<div class={`max-h-0 opacity-0 overflow-hidden transition-all ${DURATION} ${EASE} group-hover:max-h-[500px] group-data-[active=true]:max-h-[500px] group-hover:opacity-100 group-data-[active=true]:opacity-100 group-hover:mt-6 group-data-[active=true]:mt-6`}>
+	{description && (
+		<p class="text-2xl leading-relaxed text-gray-500 dark:text-gray-500">
+			{description}
+		</p>
+	)}
+	<slot />
+			</div>
+		</div>
+	</a>
 ) : (
-  <div class={outerClass}>
-    <div class={iconClass}>
-      {typeof MyIcon === 'string' ? (
-        <lottie-player src={MyIcon} background="transparent" speed="1" class="w-full h-auto scale-[1.25] origin-center" loop></lottie-player>
-      ) : (
-        <Image src={MyIcon} alt="Illustration" class="w-full h-auto" />
-      )}
-    </div>
-    <div class={contentClass}>
-      <h2 class={`text-5xl font-bold tracking-tight text-[rgb(var(--black))] transition-transform ${DURATION} ${EASE} group-hover:-translate-y-2 group-data-[active=true]:-translate-y-2 flex items-baseline`}>
-        <span class={`transition-transform ${DURATION} ${EASE} group-hover:-translate-x-2 group-data-[active=true]:-translate-x-2`}>{firstWord}</span>
-        {expansion ? (
-          <span class={`inline-block max-w-[0.3em] group-hover:max-w-[5em] group-data-[active=true]:max-w-[5em] transition-[max-width] ${DURATION} ${EASE} overflow-hidden`}>
-            <span class={`inline-block translate-y-2 group-hover:translate-y-0 group-data-[active=true]:translate-y-0 opacity-0 group-hover:opacity-100 group-data-[active=true]:opacity-100 transition-all ${DURATION} ${EASE} whitespace-nowrap`}>
-              &nbsp;{expansion}&nbsp;
-            </span>
-          </span>
-        ) : (
-          <span class={`transition-transform ${DURATION} ${EASE} group-hover:scale-x-150 group-data-[active=true]:scale-x-150`}>&nbsp;</span>
-        )}
-        <span class={`transition-transform ${DURATION} ${EASE} group-hover:translate-x-2 group-data-[active=true]:translate-x-2`}>{restOfTitle}</span>
-      </h2>
-      <div class={`max-h-0 opacity-0 overflow-hidden transition-all ${DURATION} ${EASE} group-hover:max-h-[500px] group-data-[active=true]:max-h-[500px] group-hover:opacity-100 group-data-[active=true]:opacity-100 group-hover:mt-6 group-data-[active=true]:mt-6`}>
-        {description && (
-          <p class="text-2xl leading-relaxed text-gray-500 dark:text-gray-500">
-            {description}
-          </p>
-        )}
-        <slot />
-      </div>
-    </div>
-  </div>
+	<div class={outerClass}>
+		<div class={iconClass}>
+			{typeof MyIcon === 'string' ? (
+	<lottie-player src={MyIcon} background="transparent" speed="1" class="w-full h-auto scale-[1.25] origin-center" loop></lottie-player>
+			) : (
+	<Image src={MyIcon} alt="Illustration" class={`w-full h-auto ${iconScale}`} />
+			)}
+		</div>
+		<div class={contentClass}>
+			<h2 class={`text-5xl font-bold tracking-tight text-[rgb(var(--black))] transition-transform ${DURATION} ${EASE} group-hover:-translate-y-2 group-data-[active=true]:-translate-y-2 flex items-baseline`}>
+	<span class={`transition-transform ${DURATION} ${EASE} group-hover:-translate-x-2 group-data-[active=true]:-translate-x-2`}>{firstWord}</span>
+	{expansion ? (
+		<span class={`inline-block max-w-[0.3em] group-hover:max-w-[5em] group-data-[active=true]:max-w-[5em] transition-[max-width] ${DURATION} ${EASE} overflow-hidden`}>
+			<span class={`inline-block translate-y-2 group-hover:translate-y-0 group-data-[active=true]:translate-y-0 opacity-0 group-hover:opacity-100 group-data-[active=true]:opacity-100 transition-all ${DURATION} ${EASE} whitespace-nowrap`}>
+				&nbsp;{expansion}&nbsp;
+			</span>
+		</span>
+	) : (
+		<span class={`transition-transform ${DURATION} ${EASE} group-hover:scale-x-150 group-data-[active=true]:scale-x-150`}>&nbsp;</span>
+	)}
+	<span class={`transition-transform ${DURATION} ${EASE} group-hover:translate-x-2 group-data-[active=true]:translate-x-2`}>{restOfTitle}</span>
+			</h2>
+			<div class={`max-h-0 opacity-0 overflow-hidden transition-all ${DURATION} ${EASE} group-hover:max-h-[500px] group-data-[active=true]:max-h-[500px] group-hover:opacity-100 group-data-[active=true]:opacity-100 group-hover:mt-6 group-data-[active=true]:mt-6`}>
+	{description && (
+		<p class="text-2xl leading-relaxed text-gray-500 dark:text-gray-500">
+			{description}
+		</p>
+	)}
+	<slot />
+			</div>
+		</div>
+	</div>
 )}
 
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
 <script>
-  // Ensure we only set up event listeners once per card
-  const setupLottieHover = () => {
-    document.querySelectorAll('.landing-page-card').forEach(card => {
-      if (card.hasAttribute('data-lottie-setup')) return;
-      card.setAttribute('data-lottie-setup', 'true');
+	// Ensure we only set up event listeners once per card
+	const setupLottieHover = () => {
+		document.querySelectorAll('.landing-page-card').forEach(card => {
+			if (card.hasAttribute('data-lottie-setup')) return;
+			card.setAttribute('data-lottie-setup', 'true');
 
-      const player = card.querySelector('lottie-player') as any;
-      let isHovered = false;
-      let isIntersecting = false;
+			const player = card.querySelector('lottie-player') as any;
+			let isHovered = false;
+			let isIntersecting = false;
 
-      const updateState = () => {
-        if (isHovered || isIntersecting) {
-          card.setAttribute('data-active', 'true');
-          if (player && typeof player.play === 'function') player.play();
-        } else {
-          card.removeAttribute('data-active');
-          if (player && typeof player.stop === 'function') player.stop();
-        }
-      };
+			const updateState = () => {
+	if (isHovered || isIntersecting) {
+		card.setAttribute('data-active', 'true');
+		if (player && typeof player.play === 'function') player.play();
+	} else {
+		card.removeAttribute('data-active');
+		if (player && typeof player.stop === 'function') player.stop();
+	}
+			};
 
-      card.addEventListener('mouseenter', () => {
-        isHovered = true;
-        updateState();
-      });
-      
-      card.addEventListener('mouseleave', () => {
-        isHovered = false;
-        updateState();
-      });
+			card.addEventListener('mouseenter', () => {
+	isHovered = true;
+	updateState();
+			});
+			
+			card.addEventListener('mouseleave', () => {
+	isHovered = false;
+	updateState();
+			});
 
-      // Add Intersection Observer to trigger on scroll
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          isIntersecting = entry.isIntersecting;
-          updateState();
-        });
-      }, {
-        threshold: 0.4, // Trigger when 40% of the card is in view
-        rootMargin: "0px 0px -10% 0px"
-      });
+			// Add Intersection Observer to trigger on scroll
+			const observer = new IntersectionObserver((entries) => {
+	entries.forEach(entry => {
+		isIntersecting = entry.isIntersecting;
+		updateState();
+	});
+			}, {
+	threshold: 0.6, // Require 60% visibility to trigger
+	rootMargin: "-20% 0px -20% 0px" // Only active in the middle 60% of the viewport
+			});
 
-      observer.observe(card);
-    });
-  };
+			observer.observe(card);
+		});
+	};
 
-  // Run immediately and on view transitions
-  setupLottieHover();
-  document.addEventListener('astro:page-load', setupLottieHover);
+	// Run immediately and on view transitions
+	setupLottieHover();
+	document.addEventListener('astro:page-load', setupLottieHover);
 </script>
