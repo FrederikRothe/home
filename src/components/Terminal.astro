@@ -84,7 +84,7 @@
         const prompt = `\r\n$ home${currentPath === '/' ? '' : currentPath} git:(main) ➜ `;
         
         // Filter directories based on current location
-        const allDirectories = ['/coffee', '/'];
+        const allDirectories = ['/coffee', '/projects', '/'];
         const directories = allDirectories.filter(dir => {
             if (currentPath === '/') return dir !== '/';
             return dir !== currentPath;
@@ -100,8 +100,13 @@
         term.onData((data) => {
             if (data === '\t') { // Tab completion
                 if (input.startsWith('cd ')) {
-                    tabIndex = (tabIndex + 1) % directories.length;
-                    const completion = directories[tabIndex];
+                    const currentInput = input.substring(3).trim();
+                    const filtered = directories.filter(d => d.startsWith(currentInput) || d.startsWith('/' + currentInput));
+                    const listToCycle = filtered.length > 0 ? filtered : directories;
+
+                    tabIndex = (tabIndex + 1) % listToCycle.length;
+                    const completion = listToCycle[tabIndex].replace(/^\//, '');
+                    
                     // Clear current input from terminal (everything after 'cd ')
                     for (let i = 0; i < input.length - 3; i++) {
                         term.write('\b \b');
@@ -130,7 +135,7 @@
                     term.clear();
                 } else if (command === 'ls') {
                     if (currentPath === '/') {
-                        term.writeln('coffee/');
+                        term.writeln('coffee/  projects/');
                     } else {
                         term.writeln('..');
                     }
@@ -141,6 +146,15 @@
                         term.writeln('Navigating to coffee tracker...');
                         setTimeout(() => {
                             window.location.href = '/coffee';
+                        }, 500);
+                    }
+                } else if (command === 'cd projects' || command === 'cd /projects') {
+                    if (currentPath === '/projects') {
+                        term.writeln('Already here.');
+                    } else {
+                        term.writeln('Navigating to projects...');
+                        setTimeout(() => {
+                            window.location.href = '/projects';
                         }, 500);
                     }
                 } else if (command === 'cd /' || command === 'cd ~') {
@@ -172,7 +186,8 @@
                 
                 // Don't show prompt if we are redirecting
                 const isRedirecting = 
-                    (command === 'cd /coffee' || command === 'cd coffee') && currentPath !== '/coffee' || 
+                    ((command === 'cd /coffee' || command === 'cd coffee') && currentPath !== '/coffee') || 
+                    ((command === 'cd /projects' || command === 'cd projects') && currentPath !== '/projects') ||
                     ((command === 'cd /' || command === 'cd ~' || command === 'cd ..') && currentPath !== '/');
                 
                 if (!isRedirecting) {

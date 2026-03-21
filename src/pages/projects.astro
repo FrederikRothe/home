@@ -1,0 +1,55 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = [
+	{
+		title: 'Strategies for Reducing Online Impulsive Purchasing',
+		year: '2025',
+		description: 'A five-part mixed-methods research project identifying 21 strategies to curb impulsive online buying. Developed a Chrome Extension prototype (Plasmo, React, Supabase) used in an eight-week field study with 67 participants to evaluate real-world intervention effectiveness.',
+		tags: ['HCI', 'Chrome Extension', 'LLM', 'Supabase', 'React', 'Mixed-Methods'],
+		github: 'https://github.com/grymse/anti-impulsive-purchasing',
+	},
+	{
+		title: 'isitfresh',
+		year: '2024',
+		description: 'A high-performance Next.js 15 dashboard for tracking office coffee freshness and consumption patterns. It features real-time status updates, live countdowns, and automated Slack notifications.',
+		tags: ['Next.js 15', 'Tailwind CSS 4', 'Redis', 'TypeScript', 'Docker'],
+		github: 'https://github.com/FrederikRothe/fresh_brew',
+	}];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Projects | ${SITE_TITLE}`} description="A collection of my hobby projects and experiments." />
+		<style>
+			.content-wrapper {
+				min-height: 110vh;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="content-wrapper">
+			<Header />
+			<main class="max-w-5xl mx-auto px-4 md:px-0 py-12">
+				<h1 class="text-5xl md:text-6xl font-black mb-8 tracking-tighter leading-tight">
+					Projects
+				</h1>
+				<p class="text-xl text-[rgb(var(--gray-dark))] mb-12 max-w-2xl leading-relaxed">
+					A collection of hobby projects, tools, and experiments I've built. Most of them are open-source and available on GitHub.
+				</p>
+
+				<div class="space-y-8">
+					{projects.map((project) => (
+						<ProjectCard {...project} />
+					))}
+				</div>
+			</main>
+		</div>
+		<Footer />
+	</body>
+</html>
