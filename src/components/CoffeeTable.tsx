@@ -129,7 +129,7 @@ export default function CoffeeTable({ initialCoffees }: Props) {
                         src={coffee.imageUrl}
                         alt=""
                         className="w-full h-full object-contain p-1"
-                        onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/icons/handy-cup-of-coffee.svg'; e.currentTarget.classList.add('opacity-40'); }}
+                        onError={(e) => { const el = e.currentTarget as HTMLImageElement; el.src = '/icons/handy-cup-of-coffee.svg'; el.classList.add('opacity-40'); el.closest('div')?.classList.replace('bg-white', 'bg-[rgba(var(--gray),10%)]'); }}
                       />
                     </div>
                   ) : (
