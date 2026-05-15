@@ -44,7 +44,7 @@ const projects = [
 				</p>
 
 				<div class="space-y-8">
-					{projects.map((project) => (
+					{[...projects].sort((a, b) => Number(b.year) - Number(a.year)).map((project) => (
 						<ProjectCard {...project} />
 					))}
 				</div>
