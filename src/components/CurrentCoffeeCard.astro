@@ -17,6 +17,7 @@ const { coffee } = Astro.props;
                     src={coffee.imageUrl}
                     alt={coffee.name}
                     class="max-w-full max-h-full object-contain drop-shadow-md"
+                    onerror="this.src='/icons/handy-cup-of-coffee.svg';this.classList.add('opacity-40');this.classList.remove('drop-shadow-md');"
                 />
             </div>
         ) : (

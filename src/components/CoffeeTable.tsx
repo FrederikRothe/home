@@ -125,10 +125,11 @@ export default function CoffeeTable({ initialCoffees }: Props) {
                 <td className="py-4 px-2">
                   {coffee.imageUrl ? (
                     <div className="w-10 h-10 bg-white rounded-lg overflow-hidden border border-[rgba(var(--gray),10%)]">
-                      <img 
-                        src={coffee.imageUrl} 
+                      <img
+                        src={coffee.imageUrl}
                         alt=""
                         className="w-full h-full object-contain p-1"
+                        onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/icons/handy-cup-of-coffee.svg'; e.currentTarget.classList.add('opacity-40'); }}
                       />
                     </div>
                   ) : (
