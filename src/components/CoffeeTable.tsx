@@ -132,8 +132,12 @@ export default function CoffeeTable({ initialCoffees }: Props) {
                       />
                     </div>
                   ) : (
-                    <div className="w-10 h-10 bg-[rgba(var(--gray),10%)] rounded-lg flex items-center justify-center text-[10px] text-[rgb(var(--gray))]">
-                      N/A
+                    <div className="w-10 h-10 bg-white rounded-lg overflow-hidden border border-[rgba(var(--gray),10%)]">
+                      <img
+                        src="/icons/handy-cup-of-coffee.svg"
+                        alt=""
+                        className="w-full h-full object-contain p-1 opacity-40"
+                      />
                     </div>
                   )}
                 </td>
